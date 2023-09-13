@@ -27,3 +27,4 @@ api/config.py
 api/Authentication/config.py
 
 .vscode/
+__pycache__/
