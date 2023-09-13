@@ -72,3 +72,20 @@ CREATE TABLE RentalForm(
     rental_item_id INT NOT NULL,
     FOREIGN KEY (rental_item_id) REFERENCES Item(item_id)
 );
+
+-- Create AbandonedRentalForm
+CREATE TABLE AbandonedRentalForm(
+    rental_id INT AUTO_INCREMENT PRIMARY KEY,
+    renter_name VARCHAR(10) NOT NULL,
+    renter_student_id VARCHAR(10) NOT NULL,
+    renter_phone_number VARCHAR(10) NOT NULL,
+    renter_contact_info VARCHAR(55),
+    rental_note VARCHAR(55),
+    rental_item_lend_date DATE NOT NULL,
+    rental_item_due_date DATE NOT NULL,
+    rental_rent INT NOT NULL,
+    rental_rent_pay_date DATE NOT NULL,
+    rental_item_return_date DATE,
+    rental_item_id INT NOT NULL,
+    FOREIGN KEY (rental_item_id) REFERENCES Item(item_id)
+);

@@ -25,3 +25,5 @@ yarn-error.log*
 db/config.sql
 api/config.py
 api/Authentication/config.py
+
+.vscode/
