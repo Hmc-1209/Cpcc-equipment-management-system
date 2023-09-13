@@ -1,0 +1,9 @@
+sip==5.5.0
+uvicorn
+fastapi[all]
+databases
+sshtunnel
+asyncmy
+passlib[bcrypt]
+python-multipart
+python-jose

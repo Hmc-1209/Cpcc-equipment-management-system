@@ -1,0 +1,30 @@
+.adminSelectButton {
+  margin: 2%;
+  width: 20%;
+  height: 30vh;
+  font-size: 3vh;
+  font-weight: bold;
+  border-radius: 1vw;
+  color: white;
+  text-shadow:black 0.01em 0.05em 0.1em;
+  border: wheat 5px solid;
+}
+.adminSelectButton:hover {
+  color:#b4b8c4
+}
+
+.lightgreen {
+  background-color: rgb(75, 163, 75);
+}
+.lightorange {
+  background-color: rgb(225, 166, 88);
+}
+.lightpurple {
+  background-color: rgb(173, 125, 233);
+}
+.lightred {
+  background-color: rgb(196, 101, 101);
+}
+.lightgray {
+  background-color: rgb(168, 168, 168);
+}

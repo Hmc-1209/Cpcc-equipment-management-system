@@ -1,0 +1,67 @@
+body {
+  background-color: #282c34;
+  text-align: center;
+}
+
+.App-header {
+  min-height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 7vmin);
+  font-weight: bold;
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.homeSelectSection {
+  min-height: 50vh;
+  text-align: center;
+}
+
+.homeSelectButton {
+  margin: 2%;
+  width: 30%;
+  height: 50vh;
+  font-size: 8vh;
+  font-weight: bold;
+  border-radius: 1vw;
+  color: white;
+  text-shadow:black 0.01em 0.05em 0.1em;
+  border: wheat 5px solid;
+}
+
+.homeSelectButton:hover {
+  color:#b4b8c4
+}
+
+.lightblue {
+  background-color: #61bdfb;
+}
+
+.lightyellow {
+  background-color: #f6fb61;
+}
+
+.returnButton {
+  position: fixed;
+  width: auto;
+  height: auto;
+  color:red;
+  font-size: 200%;
+  background-color: #282c34;
+  height: auto;
+  padding:1%;
+  bottom: 5%;
+  right:3%;
+  border: 3px white solid;
+  border-radius: 999em;
+}
+
+.returnButton:hover {
+  background-color: white;
+}
