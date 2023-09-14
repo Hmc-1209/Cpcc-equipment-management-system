@@ -28,3 +28,7 @@ api/Authentication/config.py
 
 .vscode/
 __pycache__/
+api/*/__pycache__/
+api/.idea
+api/venv
+.idea

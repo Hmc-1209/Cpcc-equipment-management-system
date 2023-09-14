@@ -1,3 +1,5 @@
+from sqlalchemy.ext.asyncio import create_async_engine
+from sqlalchemy import MetaData
 from sshtunnel import SSHTunnelForwarder
 import databases
 import config
@@ -11,6 +13,9 @@ server = SSHTunnelForwarder(
 )
 
 server.start()
-DATABASE_URL = f"mysql+asyncmy://Todo_taskApp_user:{config.db_password}@localhost:{str(server.local_bind_port)}/Todo_taskAPP"
+DATABASE_URL = f"mysql+asyncmy://root:{config.db_password}@localhost:{str(server.local_bind_port)}/CpccEMS"
 
 db = databases.Database(DATABASE_URL)
+
+metadata = MetaData()
+engine = create_async_engine(DATABASE_URL)
