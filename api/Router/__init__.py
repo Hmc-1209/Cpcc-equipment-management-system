@@ -1,3 +1,4 @@
-from Router import user
+from Router import user, token
 
 user = user.router
+token = token.router

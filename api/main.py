@@ -10,7 +10,7 @@ app = FastAPI()
 # app.include_router(Router.repository)
 # app.include_router(Router.task)
 # app.include_router(Router.tag)
-# app.include_router(Router.token)
+app.include_router(Router.token)
 
 app.add_middleware(
     CORSMiddleware,
