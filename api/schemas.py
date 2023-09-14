@@ -1,14 +1,16 @@
-# from pydantic import BaseModel, conbytes
+from pydantic import BaseModel
 # from datetime import date
-#
-#
-# # ----- Schemas for User table -----
-# class BaseUser(BaseModel):
-#     user_id: int
-#     user_name: str
-#
-# class UpdateUser(BaseUser):
-#     user_password: str
+
+
+# ----- Schemas for User table -----
+class BaseUser(BaseModel):
+    user_id: int
+    name: str
+
+
+class UpdateUser(BaseUser):
+    password: str
+
 #
 #
 # # ----- Schemas for Image table -----
@@ -48,9 +50,3 @@
 #     rental_rent_pay_date: date
 #     rental_item_return_date: date
 #     rental_item_id: int
-#
-#
-# # ----- Schemas for Token table -----
-# class BaseToken(BaseModel):
-#     user_name: str
-#     user_password: str
