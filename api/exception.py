@@ -9,3 +9,9 @@ token_expired = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
 
 data_rollback = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                               detail="Request failed.")
+
+duplicate_data = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                               detail="Data Duplicated.")
+
+invalid_class_id = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                                 detail="Invalid class id.")

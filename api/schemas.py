@@ -17,12 +17,18 @@ class UpdateUser(BaseUser):
 # class BaseImage(BaseModel):
 #     image_id: int
 #     image_data: conbytes(byteorder='little', min_length=1)
-#
-#
-# # ----- Schemas for Item_Class table -----
-# class BaseItemClass(BaseModel):
-#     item_class_id: int
-#     item_class_name: str
+
+
+# ----- Schemas for Item_Class table -----
+class BaseItemClass(BaseModel):
+    name: str
+
+    class Config:
+        from_attributes = True
+
+
+class CompleteItemClass(BaseItemClass):
+    class_id: int
 #
 #
 # # ----- Schemas for Item table -----
