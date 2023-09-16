@@ -11,6 +11,7 @@ body {
   justify-content: center;
   font-size: calc(10px + 7vmin);
   font-weight: bold;
+  position: relative;
   color: white;
 }
 
@@ -32,7 +33,7 @@ body {
   border-radius: 1vw;
   color: white;
   text-shadow:black 0.01em 0.05em 0.1em;
-  border: wheat 5px solid;
+  border: white 5px solid;
 }
 
 .homeSelectButton:hover {
@@ -47,6 +48,14 @@ body {
   background-color: #f6fb61;
 }
 
+.primaryColor {
+  background-color: #282c34;
+}
+
+.primaryColor:hover {
+  background-color: #34373c;
+}
+
 .returnButton {
   position: fixed;
   width: auto;
@@ -58,6 +67,21 @@ body {
   padding:1%;
   bottom: 5%;
   right:3%;
+  border: 3px white solid;
+  border-radius: 999em;
+}
+
+.signOutButton {
+  position: fixed;
+  width: auto;
+  height: auto;
+  color:red;
+  font-size: 200%;
+  background-color: #282c34;
+  height: auto;
+  padding:1%;
+  bottom: 5%;
+  left:3%;
   border: 3px white solid;
   border-radius: 999em;
 }

@@ -4,6 +4,7 @@ import { rentalFormContext } from "../rentalForm";
 
 import { days_in_Month } from "../functions/date";
 import "../../css/DatePicker.css";
+import { AppContext } from "../../App";
 
 const daysInWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -13,28 +14,31 @@ const DatePicker = () => {
     setDueDate,
     lendDate,
     setLendDate,
+    payDate,
+    setPayDate,
     editingItem,
     setEditingItem,
   } = useContext(rentalFormContext);
+  let { setAlert } = useContext(AppContext);
   const [year, setYear] = useState(0);
   const [month, setMonth] = useState(0);
 
   useEffect(() => {
-    editingItem === 1 ? setYear(lendDate[0]) : setYear(dueDate[0]);
-    editingItem === 1 ? setMonth(lendDate[1]) : setMonth(dueDate[1]);
+    const dateType =
+      editingItem === 1 ? lendDate : editingItem === 2 ? dueDate : payDate;
+
+    setYear(dateType[0]);
+    setMonth(dateType[1]);
     // eslint-disable-next-line
   }, []);
 
   const checkDayClass = (year, month, day) => {
     // Check if the day is selected
-    if (editingItem === 1) {
-      return year === lendDate[0] &&
-        month === lendDate[1] &&
-        day === lendDate[2]
-        ? "days daysSelected"
-        : "days";
-    }
-    return year === dueDate[0] && month === dueDate[1] && day === dueDate[2]
+
+    const dateType =
+      editingItem === 1 ? lendDate : editingItem === 2 ? dueDate : payDate;
+
+    return year === dateType[0] && month === dateType[1] && day === dateType[2]
       ? "days daysSelected"
       : "days";
   };
@@ -62,14 +66,16 @@ const DatePicker = () => {
   };
 
   const dayValid = (day) => {
+    // Check every dayt elements for selectable or not
+
+    const nowLendDate = new Date(
+      lendDate[0] +
+        "-" +
+        String(lendDate[1]).padStart(2, "0") +
+        "-" +
+        String(lendDate[2]).padStart(2, "0")
+    );
     if (editingItem === 2) {
-      const nowLendDate = new Date(
-        lendDate[0] +
-          "-" +
-          String(lendDate[1]).padStart(2, "0") +
-          "-" +
-          String(lendDate[2]).padStart(2, "0")
-      );
       const nowDueDate = new Date(
         year +
           "-" +
@@ -81,6 +87,39 @@ const DatePicker = () => {
         (nowDueDate.getTime() - nowLendDate.getTime()) / (1000 * 60 * 60 * 24)
       );
       if (time < 0 || time > 9) {
+        return false;
+      }
+    }
+    if (editingItem === 3) {
+      const nowDueDate = new Date(
+        dueDate[0] +
+          "-" +
+          String(dueDate[1]).padStart(2, "0") +
+          "-" +
+          String(dueDate[2]).padStart(2, "0")
+      );
+      const nowPayDate = new Date(
+        year +
+          "-" +
+          String(month).padStart(2, "0") +
+          "-" +
+          String(day).padStart(2, "0")
+      );
+      const time = Math.ceil(
+        (nowDueDate.getTime() - nowLendDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+      const time_before_return = Math.ceil(
+        (nowDueDate.getTime() - nowPayDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+      const time_before_start = Math.ceil(
+        (nowPayDate.getTime() - nowLendDate.getTime()) / (1000 * 60 * 60 * 24)
+      );
+      if (
+        time < 0 ||
+        time > 9 ||
+        time_before_return < 0 ||
+        time_before_start < 0
+      ) {
         return false;
       }
     }
@@ -122,83 +161,110 @@ const DatePicker = () => {
     return newDueDate;
   };
 
+  const day_conflict = (dateType_1, dateType_2) => {
+    // Check if day is conflict, like pay date eariler then start date, return true
+
+    dateType_1 = new Date(
+      dateType_1[0] + "-" + dateType_1[1] + "-" + dateType_1[2]
+    );
+    dateType_2 = new Date(
+      dateType_2[0] + "-" + dateType_2[1] + "-" + dateType_2[2]
+    );
+    if (dateType_1 - dateType_2 > 0) return true;
+    return false;
+  };
+
   const selectDate = (day) => {
     // Set due date
+
     if (editingItem === 1) {
+      if (day_conflict([year, month, day], payDate)) {
+        setPayDate([year, month, day]);
+        setAlert(3);
+      }
       setLendDate([year, month, day]);
       setDueDate(lend_due_day_gap(day));
-    } else {
+    } else if (editingItem === 2) {
+      if (day_conflict(payDate, [year, month, day])) {
+        setPayDate([year, month, day]);
+        setAlert(3);
+      }
       setDueDate([year, month, day]);
+    } else {
+      setPayDate([year, month, day]);
     }
     closeDatePicker();
   };
 
   return (
-    <div className="datePickerBase">
-      <div className="datePickerYear">
-        {year}
-        <button className="closeDatePicker" onClick={closeDatePicker}>
-          X
-        </button>
-      </div>
-
-      {/* Month and change buttons */}
-      <div style={{ textAlign: "center", display: "flex" }}>
-        {/* Prev month button */}
-        <button
-          className="monthPNbutton"
-          style={{ width: "33.3%" }}
-          onClick={() => prevMonth()}
-          type="button"
-        >
-          &#x3c;
-        </button>
-        {/* Month */}
-        <div className="datePickerMonth" style={{ width: "33.3%" }}>
-          - {month} -
+    <div className="datePickerSection">
+      <div className="datePickerBack" onClick={() => setEditingItem(0)}></div>
+      <div className="datePickerBase">
+        <div className="datePickerYear">
+          {year}
+          <button className="closeDatePicker" onClick={closeDatePicker}>
+            X
+          </button>
         </div>
-        {/* Next month button */}
-        <button
-          className="monthPNbutton"
-          style={{ width: "33.3%" }}
-          onClick={nextMonth}
-          type="button"
-        >
-          &#x3e;
-        </button>
-      </div>
 
-      {/* Days name in a week */}
-      <div style={{ display: "flex", textAlign: "center" }}>
-        {daysInWeek.map((day) => (
-          <div className="daysInWeek" key={day}>
-            {day}
+        {/* Month and change buttons */}
+        <div style={{ textAlign: "center", display: "flex" }}>
+          {/* Prev month button */}
+          <button
+            className="monthPNbutton"
+            style={{ width: "33.3%" }}
+            onClick={() => prevMonth()}
+            type="button"
+          >
+            &#x3c;
+          </button>
+          {/* Month */}
+          <div className="datePickerMonth" style={{ width: "33.3%" }}>
+            - {month} -
           </div>
-        ))}
-      </div>
-      {/* Days elements */}
-      {days_in_Month(month - 1, year).map((day) =>
-        day > 0 ? (
-          dayValid(day) ? (
-            <button
-              className={checkDayClass(year, month, day)}
-              key={day}
-              onClick={() => selectDate(day)}
-            >
-              {day}
-            </button>
-          ) : (
-            <div
-              className={checkDayClass(year, month, day) + " disable"}
-              key={day}
-            >
+          {/* Next month button */}
+          <button
+            className="monthPNbutton"
+            style={{ width: "33.3%" }}
+            onClick={nextMonth}
+            type="button"
+          >
+            &#x3e;
+          </button>
+        </div>
+
+        {/* Days name in a week */}
+        <div style={{ display: "flex", textAlign: "center" }}>
+          {daysInWeek.map((day) => (
+            <div className="daysInWeek" key={day}>
               {day}
             </div>
+          ))}
+        </div>
+        {/* Days elements */}
+        {days_in_Month(month - 1, year).map((day) =>
+          day > 0 ? (
+            dayValid(day) ? (
+              <button
+                className={checkDayClass(year, month, day)}
+                key={day}
+                onClick={() => selectDate(day)}
+              >
+                {day}
+              </button>
+            ) : (
+              <div
+                className={checkDayClass(year, month, day) + " disable"}
+                key={day}
+              >
+                {day}
+              </div>
+            )
+          ) : (
+            <div className="daysN" key={day}></div>
           )
-        ) : (
-          <div className="daysN" key={day}></div>
-        )
-      )}
+        )}
+      </div>
     </div>
   );
 };

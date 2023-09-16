@@ -15,3 +15,23 @@ body {
 .green {
   color: rgb(22, 206, 22);
 }
+
+.orange {
+  color: rgb(216, 144, 48);
+}
+
+.absolute {
+  position: absolute;
+}
+
+.bottom {
+  bottom: 5%;
+}
+
+.left {
+  left: 5%;
+}
+
+.medium {
+  font-size: medium;
+}

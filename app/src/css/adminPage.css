@@ -7,7 +7,7 @@
   border-radius: 1vw;
   color: white;
   text-shadow:black 0.01em 0.05em 0.1em;
-  border: wheat 5px solid;
+  border: white 5px solid;
 }
 .adminSelectButton:hover {
   color:#b4b8c4

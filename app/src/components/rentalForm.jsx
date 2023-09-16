@@ -27,11 +27,17 @@ export default function RentalForm() {
     date.getMonth() + 1,
     date.getDate(),
   ]);
+  const [payDate, setPayDate] = useState([
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(),
+  ]);
   const [editingItem, setEditingItem] = useState(null);
   const [selectedRentalItem, setSelectedRentalItem] = useState("");
 
   const setLendDateSelecting = () => setEditingItem(1);
   const setDueDateSelecting = () => setEditingItem(2);
+  const setPayDateSelecting = () => setEditingItem(3);
 
   const submitForm = () => {
     const body = {
@@ -65,6 +71,8 @@ export default function RentalForm() {
         setDueDate,
         lendDate,
         setLendDate,
+        payDate,
+        setPayDate,
         editingItem,
         setEditingItem,
       }}
@@ -147,6 +155,24 @@ export default function RentalForm() {
           </div>
         </div>
         {editingItem === 2 && <DatePicker />}
+        {/* Pay date */}
+        <div className="formSection30">
+          <label htmlFor="fselectRentalItem" className="formLabel">
+            預計支付租金日期
+          </label>
+          <div
+            className="formItemDate"
+            onClick={setPayDateSelecting}
+            id="rentalDueDate"
+          >
+            {payDate[0] +
+              "-" +
+              String(payDate[1]).padStart(2, "0") +
+              "-" +
+              String(payDate[2]).padStart(2, "0")}
+          </div>
+        </div>
+        {editingItem === 3 && <DatePicker />}
         {/* Rental description */}
         <div className="formSection40">
           <label htmlFor="fselectRentalItem" className="formLabel">
@@ -158,9 +184,7 @@ export default function RentalForm() {
             className="formRentalDescription"
           />
         </div>
-        {alert !== 0 && (
-          <div className="formSection30">{alert_message(alert)}</div>
-        )}
+        {alert !== 0 && alert_message(alert)}
         {/* Submit */}
         <div className="formSection100">
           <button className="submitButton" type="button" onClick={submitForm}>
