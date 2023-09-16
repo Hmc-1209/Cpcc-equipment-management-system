@@ -4,12 +4,16 @@ from pydantic import BaseModel
 
 # ----- Schemas for User table -----
 class BaseUser(BaseModel):
+    name: str | None = None
+    password: str | None = None
+
+
+class CompleteUser(BaseUser):
     user_id: int
-    name: str
 
+    class Config:
+        from_attributes = True
 
-class UpdateUser(BaseUser):
-    password: str
 
 #
 #

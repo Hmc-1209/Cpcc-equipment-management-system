@@ -1,19 +1,19 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends
 from typing import Annotated
 
-from schemas import UpdateUser
+from schemas import BaseUser, CompleteUser
 from exception import data_rollback
-from Repository.UserCRUD import update_user_password
+from Repository.UserCRUD import update_user
 from Authentication.JWTtoken import get_current_user
 
 
 router = APIRouter(prefix="/user", tags=["User"])
 
 
-@router.put("/{password}", status_code=status.HTTP_204_NO_CONTENT)
-async def update_user(password: str, current_user: Annotated[UpdateUser, Depends(get_current_user)]) -> None:
-    """The endpoint of updating a user's info"""
+@router.patch("/")
+async def update_admin_user(user: BaseUser, current_user: Annotated[CompleteUser, Depends(get_current_user)]) -> None:
+    update_data = user.model_dump(exclude_unset=True, exclude_none=True)
+    update = CompleteUser.model_validate(current_user).model_copy(update=update_data)
 
-    success = await update_user_password(current_user.user_id, password)
-    if not success:
+    if not await update_user(update):
         raise data_rollback
