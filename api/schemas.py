@@ -15,12 +15,16 @@ class CompleteUser(BaseUser):
         from_attributes = True
 
 
-#
-#
-# # ----- Schemas for Image table -----
-# class BaseImage(BaseModel):
-#     image_id: int
-#     image_data: conbytes(byteorder='little', min_length=1)
+# ----- Schemas for Image table -----
+class BaseImage(BaseModel):
+    data: str
+
+    class Config:
+        from_attributes = True
+
+
+class CompleteImage(BaseImage):
+    image_id: int
 
 
 # ----- Schemas for Item_Class table -----

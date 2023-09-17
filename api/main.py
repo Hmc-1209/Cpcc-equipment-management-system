@@ -6,9 +6,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.include_router(Router.token)
 app.include_router(Router.user)
 app.include_router(Router.item_class)
-app.include_router(Router.token)
+app.include_router(Router.image)
 
 app.add_middleware(
     CORSMiddleware,

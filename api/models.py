@@ -34,7 +34,7 @@ Item = sqlalchemy.Table(
     Column("model", sqlalchemy.VARCHAR(25), nullable=False),
     Column("status", sqlalchemy.INTEGER, nullable=False),
     Column("class_id", sqlalchemy.INTEGER, ForeignKey("ItemClass.class_id"), nullable=False),
-    Column("image_id", sqlalchemy.INTEGER, ForeignKey("Image.image_id"), nullable=False)
+    Column("image_id", sqlalchemy.INTEGER, ForeignKey("Image.image_id"))
 )
 
 RentalForm = sqlalchemy.Table(
