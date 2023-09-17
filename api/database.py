@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy import MetaData
+from sqlalchemy.sql.elements import ClauseElement
 from sshtunnel import SSHTunnelForwarder
 import databases
 import config
@@ -19,3 +20,18 @@ db = databases.Database(DATABASE_URL)
 
 metadata = MetaData()
 engine = create_async_engine(DATABASE_URL)
+
+
+async def execute_stmt_in_tran(stmt_list: list[ClauseElement]) -> bool:
+    tran = db.transaction()
+
+    try:
+        await tran.start()
+        for stmt in stmt_list:
+            await db.execute(stmt)
+        await tran.commit()
+        return True
+
+    except NotImplementedError:
+        await tran.rollback()
+        return False
