@@ -1,0 +1,108 @@
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+
+.itemClassPage {
+  font-weight: bold;
+  font-size: 150%;
+  margin:0 auto;
+  width: 50%;
+  height:70vh;
+  overflow-y: auto;
+}
+
+.addItemClass {
+  background-color: rgb(212, 212, 212);
+  width:100%;
+  height: 7vh;
+  border-radius: 5px;
+}
+
+.addItemClass:active {
+  background-color: rgb(255, 255, 255);
+}
+
+.itemClassSection {
+  width: 100%;
+  height: 10%;
+  margin-top: 2%;
+  font-weight: bold;
+  color: white;
+  border: 2px white solid;
+  border-radius: 5px;  
+  display: flex;
+}
+
+.itemClassName,
+.itemClassNameInput {
+  font-size: 150%;
+  display: flex;
+  padding-left: 5%;
+  align-items: center;
+  width: 70%;
+  min-height: 100%;
+}
+
+.itemClassNameInput {
+  background-color: #282c34;
+  color: white;
+  border:none;
+}
+
+.itemClassMarkBtn,
+.itemClassDelBtn,
+.itemClassEditBtn {
+  font-size: 150%;
+  display: flex;
+  width: 10%;
+  align-items: center;
+  min-height: 100%;
+  color:red;
+}
+.itemClassDelBtn:hover {
+  color:rgb(198, 35, 35);
+}
+.itemClassDelBtn:active {
+  color:rgb(255, 121, 121);
+}
+
+.itemClassMarkBtn {
+  color: rgb(22, 134, 22);
+}
+.itemClassMarkBtn:hover {
+  color: rgb(15, 104, 15);
+}
+.itemClassMarkBtn:active {
+  color: rgb(34, 159, 34);
+}
+
+.itemClassEditBtn {
+  color: rgb(111, 138, 175);
+}
+.itemClassEditBtn:hover {
+  color: rgb(74, 92, 117);
+}
+.itemClassEditBtn:active {
+  color: rgb(132, 152, 181);
+}
+
+.greenBorder {
+  border-color: rgb(13, 144, 13);
+}
+
+@media screen and (max-width: 767px){
+  .itemClassPage {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .itemClassPage {
+    width: 60%;
+  }
+}

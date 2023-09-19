@@ -89,3 +89,54 @@ form {
   color: white;
   background-color: rgb(66, 211, 26);
 }
+
+@media screen and (max-width: 767px){
+  .rentalFormTitle {
+    font-size: 30px;
+    margin:8px;
+  }
+  .formSection30 {
+    width: calc(80% - 10px); 
+    font-size: 80%;
+  }
+  .formSection40 {
+    width: calc(80% - 10px); 
+    font-size: 80%;
+  }
+  .formRentalDescription {
+    padding: 1%;
+    width: 100%;
+  }
+  .submitButton {
+    width: 55%;
+    font-size: 100%;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(66, 211, 26);
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .rentalFormTitle {
+    font-size: 30px;
+  }
+  .formSection30 {
+    width: calc(45% - 10px); 
+    font-size: 100%;
+  }
+  .formSection40 {
+    width: calc(60% - 10px); 
+    font-size: 100%;
+  }
+  .formRentalDescription {
+    padding: 1%;
+    width: 70%;
+  }
+  .submitButton {
+    width: 35%;
+    font-size: 150%;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(66, 211, 26);
+  }
+}

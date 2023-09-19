@@ -28,3 +28,19 @@
 .lightgray {
   background-color: rgb(168, 168, 168);
 }
+
+@media screen and (max-width: 767px){
+  .adminSelectButton {
+    width: 70%;
+    height: 7vh;
+    border:1px white solid;
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .adminSelectButton {
+    width: 70%;
+    height: 7vh;
+    border:1px white solid;
+  }
+}
