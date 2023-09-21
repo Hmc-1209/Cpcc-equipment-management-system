@@ -11,6 +11,8 @@ const LogIn = () => {
 
   const loggingIn = async () => {
     // Log In and set the localStorage datas
+
+    setAlert(6);
     const admin = document.getElementById("admin").value;
     const password = document.getElementById("password").value;
     if (admin === "" || password === "") {
@@ -18,6 +20,10 @@ const LogIn = () => {
       return;
     }
     const result = await get_access_token(admin, password);
+    if (!result) {
+      setAlert(5);
+      return;
+    }
     if (result.access_token) {
       window.localStorage.setItem("access_token", result.access_token);
       window.localStorage.setItem("isLogIn", true);

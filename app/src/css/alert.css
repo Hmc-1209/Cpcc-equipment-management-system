@@ -8,6 +8,7 @@ body {
   margin-top:1%;
 }
 
+
 .red {
   color:rgb(190, 42, 42);
 }
@@ -34,4 +35,22 @@ body {
 
 .medium {
   font-size: medium;
+}
+
+.x-large {
+  font-size: x-large;
+}
+
+.no-space {
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width:767px) {
+  .top {
+    top:10%;
+  }
+  .bottom {
+    bottom:3px;
+  }
 }

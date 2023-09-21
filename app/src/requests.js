@@ -59,6 +59,153 @@ export const validate = async () => {
     return true;
   } catch (error) {
     console.error("Error validating access token:", error);
-    // throw error;
+    return false;
+  }
+};
+
+export const update_admin = async (type, value) => {
+  // Update the corresponding value of admin user
+
+  const token = window.localStorage.getItem("access_token");
+
+  let body = {};
+  body[type] = value;
+
+  console.log(JSON.stringify(body));
+
+  try {
+    const response = await fetch(`${path}/user/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) return false;
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const get_item_classes = async () => {
+  // Get all item classes
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/item_class/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const update_item_class = async (class_id, new_name) => {
+  // Update specific item class
+
+  const token = window.localStorage.getItem("access_token");
+
+  const body = { name: new_name };
+
+  try {
+    const response = await fetch(`${path}/item_class/${class_id}`, {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const delete_item_class = async (class_id) => {
+  // Delete specific item class
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/item_class/${class_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const add_new_item_class = async (name) => {
+  // Add new item class
+
+  const token = window.localStorage.getItem("access_token");
+  const body = { name: name };
+
+  try {
+    const response = await fetch(`${path}/item_class/`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
   }
 };
