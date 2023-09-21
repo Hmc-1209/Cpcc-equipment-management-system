@@ -32,18 +32,11 @@ CREATE TABLE User
     password VARCHAR(64) NOT NULL
 );
 
--- Create IMAGE table
-CREATE TABLE Image
-(
-    image_id INT AUTO_INCREMENT PRIMARY KEY,
-    data     BLOB NOT NULL
-);
-
 -- Create ITEM_CLASS table
 CREATE TABLE ItemClass
 (
-    class_id INT AUTO_INCREMENT PRIMARY KEY,
-    name     VARCHAR(25) NOT NULL UNIQUE
+    class_id   INT AUTO_INCREMENT PRIMARY KEY,
+    class_name VARCHAR(25) NOT NULL UNIQUE
 );
 
 -- Create ITEM table
@@ -57,8 +50,7 @@ CREATE TABLE Item
     status        INT         NOT NULL,
     class_id      INT         NOT NULL,
     FOREIGN KEY (class_id) REFERENCES ItemClass (class_id),
-    image_id      INT,
-    FOREIGN KEY (image_id) REFERENCES Image (image_id)
+    image         BLOB
 );
 
 -- Create RENTAL_FORM table

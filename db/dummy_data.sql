@@ -3,23 +3,16 @@ USE CpccEMS;
 INSERT INTO User(name, password)
 VALUES ('CpccAdmin', '$2b$12$nCuMTo70oCw8thsh7HWXBuwQ737k5ffNV1nVH22C4Y1Byi7/jtejm');
 
-INSERT INTO ItemClass(name)
+INSERT INTO ItemClass(class_name)
 VALUES ('dog'),
        ('cat');
 
-INSERT INTO Image(data)
-VALUES ('/x11/x22'),
-       ('/x22/x22'),
-       ('/x33/x22'),
-       ('/x44/x22'),
-       ('/x55/x22');
-
-INSERT INTO Item (name, description, serial_number, model, status, class_id, image_id)
-VALUES ('OrangeCat', 'A lazy orange cat.', 'C001', '11', 0, 2, 1),
-       ('CalicoCat', 'Calico cat 1.', 'C002', '12', 0, 2, 2),
-       ('Border Collie1', 'A dog.', 'D001', '13', 0, 1, 3),
-       ('Border Collie2', 'Another dog.', 'D002', '14', 0, 1, 4),
-       ('Gray cat', 'A cute gray cat.', 'C003', '15', 0, 2, 5);
+INSERT INTO Item (name, description, serial_number, model, status, class_id, image)
+VALUES ('OrangeCat', 'A lazy orange cat.', 'C001', '11', 0, 2, '/x11/x22'),
+       ('CalicoCat', 'Calico cat 1.', 'C002', '12', 0, 2, '/x22/x22'),
+       ('Border Collie1', 'A dog.', 'D001', '13', 0, 1, '/x33/x22'),
+       ('Border Collie2', 'Another dog.', 'D002', '14', 0, 1, '/x44/x22'),
+       ('Gray cat', 'A cute gray cat.', 'C003', '15', 0, 2, '/x55/x22');
 
 INSERT INTO RentalForm (student_name, student_id, phone_number, contact_info, note, lend_date, due_date, rent, pay_date,
                         return_date, status, item_id)
