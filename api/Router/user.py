@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from typing import Annotated
 
 from schemas import BaseUser, CompleteUser
-from exception import data_rollback
+from exception import bad_request
 from Repository.UserCRUD import update_user
 from Authentication.JWTtoken import get_current_user
 from Authentication.hashing import hashing_password
@@ -19,4 +19,4 @@ async def update_admin_user(user: BaseUser, current_user: Annotated[CompleteUser
     update = CompleteUser.model_validate(current_user).model_copy(update=update_data)
 
     if not await update_user(update):
-        raise data_rollback
+        raise bad_request

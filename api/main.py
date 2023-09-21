@@ -9,7 +9,7 @@ app = FastAPI()
 app.include_router(Router.token)
 app.include_router(Router.user)
 app.include_router(Router.item_class)
-app.include_router(Router.image)
+app.include_router(Router.item)
 
 app.add_middleware(
     CORSMiddleware,

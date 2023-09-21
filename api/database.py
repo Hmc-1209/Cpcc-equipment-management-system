@@ -32,6 +32,6 @@ async def execute_stmt_in_tran(stmt_list: list[ClauseElement]) -> bool:
         await tran.commit()
         return True
 
-    except NotImplementedError:
+    except:
         await tran.rollback()
         return False

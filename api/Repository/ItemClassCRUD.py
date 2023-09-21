@@ -9,7 +9,7 @@ async def get_class_by_id(class_id: int) -> BaseItemClass:
 
 
 async def get_class_by_name(name: str) -> BaseItemClass:
-    stmt = ItemClass.select().where(ItemClass.c.name == name)
+    stmt = ItemClass.select().where(ItemClass.c.class_name == name)
     return await db.fetch_one(stmt)
 
 
@@ -19,12 +19,12 @@ async def get_all_item_class() -> list[CompleteItemClass]:
 
 
 async def create_new_class(name: str) -> bool:
-    stmt = ItemClass.insert().values(name=name)
+    stmt = ItemClass.insert().values(class_name=name)
     return await execute_stmt_in_tran([stmt])
 
 
 async def update_class(class_id: int, item_class: BaseItemClass):
-    stmt = ItemClass.update().where(ItemClass.c.class_id == class_id).values(name=item_class.name)
+    stmt = ItemClass.update().where(ItemClass.c.class_id == class_id).values(class_name=item_class.class_name)
     return await execute_stmt_in_tran([stmt])
 
 

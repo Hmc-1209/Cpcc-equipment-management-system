@@ -7,8 +7,8 @@ token_expired = HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
                               detail="Could not validate credentials.",
                               headers={"WWW-Authenticate": "Bearer"})
 
-data_rollback = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
-                              detail="Request failed.")
+bad_request = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                            detail="Request failed.")
 
 duplicate_data = HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
                                detail="Data Duplicated.")
@@ -19,5 +19,8 @@ invalid_class_id = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
 no_such_item_class = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                    detail="Item class not found.")
 
-no_such_image = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                              detail="Image not found.")
+no_such_item = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                             detail="Item not found.")
+
+invalid_item_id = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
+                                detail="Invalid item id.")

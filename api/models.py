@@ -14,14 +14,7 @@ ItemClass = sqlalchemy.Table(
     "ItemClass",
     metadata,
     Column("class_id", sqlalchemy.INTEGER, primary_key=True, index=True),
-    Column("name", sqlalchemy.VARCHAR(25), nullable=False, unique=True)
-)
-
-Image = sqlalchemy.Table(
-    "Image",
-    metadata,
-    Column("image_id", sqlalchemy.INTEGER, primary_key=True, index=True),
-    Column("data", sqlalchemy.BLOB, nullable=False)
+    Column("class_name", sqlalchemy.VARCHAR(25), nullable=False, unique=True)
 )
 
 Item = sqlalchemy.Table(
@@ -34,7 +27,7 @@ Item = sqlalchemy.Table(
     Column("model", sqlalchemy.VARCHAR(25), nullable=False),
     Column("status", sqlalchemy.INTEGER, nullable=False),
     Column("class_id", sqlalchemy.INTEGER, ForeignKey("ItemClass.class_id"), nullable=False),
-    Column("image_id", sqlalchemy.INTEGER, ForeignKey("Image.image_id"))
+    Column("image", sqlalchemy.BLOB)
 )
 
 RentalForm = sqlalchemy.Table(
