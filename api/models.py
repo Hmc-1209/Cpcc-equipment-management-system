@@ -29,7 +29,7 @@ Item = sqlalchemy.Table(
     "Item",
     metadata,
     Column("item_id", sqlalchemy.INTEGER, primary_key=True, index=True),
-    Column("name", sqlalchemy.VARCHAR(25), nullable=False),
+    Column("item_name", sqlalchemy.VARCHAR(25), nullable=False),
     Column("description", sqlalchemy.VARCHAR(255)),
     Column("serial_number", sqlalchemy.VARCHAR(25), nullable=False),
     Column("status", sqlalchemy.INTEGER, nullable=False),

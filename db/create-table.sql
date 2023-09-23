@@ -51,7 +51,7 @@ CREATE TABLE Model
 CREATE TABLE Item
 (
     item_id       INT AUTO_INCREMENT PRIMARY KEY,
-    name          VARCHAR(25) NOT NULL,
+    item_name     VARCHAR(25) NOT NULL,
     description   VARCHAR(255),
     serial_number VARCHAR(25) NOT NULL,
     status        INT         NOT NULL,

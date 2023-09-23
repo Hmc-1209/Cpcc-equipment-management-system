@@ -42,7 +42,7 @@ class CompleteModel(DetailModel):
 
 # ----- Schemas for Item table -----
 class BaseItem(BaseModel):
-    name: str
+    item_name: str
     serial_number: str
     description: str
 
@@ -57,7 +57,7 @@ class ItemDetailList(ItemList):
 
 
 class CreateItem(BaseItem):
-    status: int = 1
+    status: int = 0
     model_id: int
     image: str
 
@@ -75,11 +75,11 @@ class UpdateItem(BaseModel):
 
 # ----- Schemas for Rental Form table -----
 class BaseRentalForm(BaseModel):
+    rental_id: int
     student_id: str
     student_name: str
     lend_date: date
     due_date: date
-    status: int
 
 
 class RentalFormList(BaseRentalForm):
@@ -91,9 +91,14 @@ class RentalFormList(BaseRentalForm):
     pay_date: date
 
 
+class CompleteRentalFormList(RentalFormList):
+    item_name: str
+    model_name: str
+
+
 class UpdateRentalForm(BaseModel):
-    return_date: date | None
-    status: int | None
+    return_date: date = None
+    status: int
 
     class Config:
         from_attributes = True

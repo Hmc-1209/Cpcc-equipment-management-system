@@ -19,7 +19,7 @@ async def get_item_list_by_model(model_id: int) -> list[ItemList]:
 
 
 async def create_item(new_item: CreateItem) -> bool:
-    stmt = Item.insert().values(name=new_item.name,
+    stmt = Item.insert().values(name=new_item.item_name,
                                 description=new_item.description,
                                 serial_number=new_item.serial_number,
                                 status=new_item.status,
