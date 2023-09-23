@@ -57,7 +57,6 @@ class ItemDetailList(ItemList):
 
 
 class CreateItem(BaseItem):
-    status: int = 0
     model_id: int
     image: str
 
@@ -75,20 +74,28 @@ class UpdateItem(BaseModel):
 
 # ----- Schemas for Rental Form table -----
 class BaseRentalForm(BaseModel):
-    rental_id: int
-    student_id: str
     student_name: str
+    student_id: str
     lend_date: date
     due_date: date
-
-
-class RentalFormList(BaseRentalForm):
     phone_number: str
     contact_info: str | None
     note: str | None
+    pay_date: date
+
+
+class RentalFormList(BaseRentalForm):
+    rental_id: int
     return_date: date | None
     rent: int
-    pay_date: date
+
+
+class CreateRentalForm(BaseRentalForm):
+    rent: int = 500
+    item_id: int
+
+    class Config:
+        from_attributes = True
 
 
 class CompleteRentalFormList(RentalFormList):

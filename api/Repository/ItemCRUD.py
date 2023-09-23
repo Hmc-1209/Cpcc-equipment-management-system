@@ -22,7 +22,7 @@ async def create_item(new_item: CreateItem) -> bool:
     stmt = Item.insert().values(name=new_item.item_name,
                                 description=new_item.description,
                                 serial_number=new_item.serial_number,
-                                status=new_item.status,
+                                status=0,
                                 model_id=new_item.model_id,
                                 image=new_item.image.encode())
     return await execute_stmt_in_tran([stmt])

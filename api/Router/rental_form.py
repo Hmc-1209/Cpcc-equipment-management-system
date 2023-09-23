@@ -26,6 +26,15 @@ async def closed_rental_form_by_item_id(item_id: int, _=Depends(get_current_user
     return await get_closed_rental_form_by_item(item_id)
 
 
+@router.post("/", status_code=status.HTTP_201_CREATED)
+async def create_new_rental_form(new_form: CreateRentalForm, _=Depends(get_current_user)) -> None:
+    if not await get_item_by_id(new_form.item_id):
+        raise no_such_item
+
+    if not await create_rental_form(new_form):
+        raise bad_request
+
+
 @router.patch("/{rental_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def update_rental_form(rental_id: int, new_form: UpdateRentalForm, _=Depends(get_current_user)) -> None:
     rental_form = await get_rental_form_by_id(rental_id)
