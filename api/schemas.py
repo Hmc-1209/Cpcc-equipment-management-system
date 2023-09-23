@@ -61,6 +61,7 @@ class ItemList(BaseItem):
 
 class ItemDetailList(ItemList):
     image: str
+    model_id: int
 
 
 class CreateItem(BaseItem):
