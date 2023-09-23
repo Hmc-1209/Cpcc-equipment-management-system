@@ -90,6 +90,14 @@ class RentalFormList(BaseRentalForm):
     rent: int
     pay_date: date
 
+
+class UpdateRentalForm(BaseModel):
+    return_date: date | None
+    status: int | None
+
+    class Config:
+        from_attributes = True
+
 # class RentalForm(BaseRentalForm):
 #     student_id: str
 #     phone_number: str

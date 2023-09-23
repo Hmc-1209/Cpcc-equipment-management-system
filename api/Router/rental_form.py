@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 
-from exception import no_such_item, bad_request
+from exception import no_such_item, bad_request, no_such_rental_form
 from Repository.RentalFormCRUD import *
 from Repository.ItemCRUD import get_item_by_id
 from Authentication.JWTtoken import get_current_user
@@ -14,3 +14,16 @@ async def rental_form_by_item_id(item_id: int, _=Depends(get_current_user)) -> l
         raise no_such_item
 
     return await get_rental_form_by_item(item_id)
+
+
+@router.patch("/{rental_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def update_rental_form(rental_id: int, new_form: UpdateRentalForm, _=Depends(get_current_user)) -> None:
+    rental_form = await get_rental_form_by_id(rental_id)
+    if not rental_form:
+        raise no_such_rental_form
+
+    update_data = new_form.model_dump()
+    update = UpdateRentalForm.model_validate(rental_form).model_copy(update=update_data)
+
+    if not await update_rental_form_by_id(rental_id, update):
+        raise bad_request

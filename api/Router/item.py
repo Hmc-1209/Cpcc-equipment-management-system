@@ -4,7 +4,7 @@ from exception import bad_request, no_such_model, no_such_item, invalid_item_id
 from Authentication.JWTtoken import get_current_user
 from Repository.ItemCRUD import *
 from Repository.ModelCRUD import get_model_by_id
-from Repository.RentalFormCRUD import check_form_by_id
+from Repository.RentalFormCRUD import check_form_by_item
 
 router = APIRouter(prefix="/item", tags=["Item"])
 
@@ -49,7 +49,7 @@ async def delete_item(item_id: int, _=Depends(get_current_user)) -> None:
     if not await get_item_by_id(item_id):
         raise no_such_item
 
-    if await check_form_by_id(item_id):
+    if await check_form_by_item(item_id):
         raise invalid_item_id
 
     if not await delete_item_by_id(item_id):

@@ -27,3 +27,6 @@ no_such_item = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
 
 invalid_item_id = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
                                 detail="Invalid item id.")
+
+no_such_rental_form = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                    detail="Rental form not found.")
