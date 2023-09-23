@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, status
 
-from exception import no_such_item_class, duplicate_data, bad_request, no_such_model
+from exception import no_such_item_class, duplicate_data, bad_request, no_such_model, invalid_model_id
 from Authentication.JWTtoken import get_current_user
 from Repository.ModelCRUD import *
 from Repository.ItemClassCRUD import get_class_by_id
@@ -44,6 +44,9 @@ async def update_model(model_id: int, new_model: UpdateModel, _=Depends(get_curr
 
 @router.delete("/{model_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_model(model_id: int, _=Depends(get_current_user)) -> None:
+    if model_id == 1:
+        raise invalid_model_id
+
     if not await get_model_by_id(model_id):
         raise no_such_model
 
