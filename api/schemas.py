@@ -28,7 +28,7 @@ class CompleteItemClass(BaseItemClass):
 
 
 # ----- Schemas for Model table -----
-class CompleteModel(BaseModel):
+class DetailModel(BaseModel):
     model_id: int
     model_name: str
 
@@ -36,23 +36,27 @@ class CompleteModel(BaseModel):
         from_attributes = True
 
 
+class CompleteModel(DetailModel):
+    available: int
+
+
 # ----- Schemas for Item table -----
 class BaseItem(BaseModel):
     name: str
     serial_number: str
+    description: str
 
 
 class ItemList(BaseItem):
+    status: int
     item_id: int
 
 
 class ItemDetailList(ItemList):
-    status: int
     image: str
 
 
 class CreateItem(BaseItem):
-    description: str
     status: int = 1
     model_id: int
     image: str

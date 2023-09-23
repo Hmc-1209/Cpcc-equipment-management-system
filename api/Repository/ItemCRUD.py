@@ -1,4 +1,4 @@
-from models import Item, ItemClass
+from models import Item
 from schemas import BaseItem, ItemList, ItemDetailList, CreateItem, UpdateItem
 from database import db, execute_stmt_in_tran
 
@@ -29,15 +29,14 @@ async def create_item(new_item: CreateItem) -> bool:
 
 
 async def update_item_by_id(item_id: int, new_item: UpdateItem) -> bool:
-    stmt = Item.update().values(description=new_item.description,
-                                status=new_item.status)
+    stmt = Item.update().where(Item.c.item_id == item_id).values(description=new_item.description,
+                                                                 status=new_item.status)
     return await execute_stmt_in_tran([stmt])
 
 
 async def delete_item_by_id(item_id: int) -> bool:
     stmt = Item.delete().where(Item.c.item_id == item_id)
     return await execute_stmt_in_tran([stmt])
-
 
 # async def get_detail_item(item_id: int) -> DetailItem:
 #     stmt = (Item
