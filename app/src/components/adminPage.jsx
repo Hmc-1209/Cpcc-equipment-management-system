@@ -19,35 +19,35 @@ export default function AdminPage() {
           className="adminSelectButton primaryColor"
           onClick={() => setMode(20)}
         >
-          審核器材借用請求
+          器材盤點
         </button>
 
         <button
           className="adminSelectButton primaryColor"
           onClick={() => setMode(30)}
         >
-          新增器材借用請求
+          新增借用請求
         </button>
 
         <button
           className="adminSelectButton primaryColor"
           onClick={() => setMode(40)}
         >
-          關閉借用請求
+          審核借用請求
         </button>
 
         <button
           className="adminSelectButton primaryColor"
           onClick={() => setMode(50)}
         >
-          器材分類
+          器材種類
         </button>
 
         <button
           className="adminSelectButton primaryColor"
           onClick={() => setMode(60)}
         >
-          更新器材狀態
+          器材調整
         </button>
 
         <button

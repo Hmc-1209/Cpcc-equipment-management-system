@@ -7,6 +7,7 @@ import AdminPage from "./components/adminPage";
 import LogIn from "./components/authentication/logIn";
 import AdminSettings from "./components/admin/adminSettings";
 import ItemClassPage from "./components/admin/itemClass";
+import Items from "./components/admin/items";
 export const AppContext = createContext(null);
 
 function App() {
@@ -131,6 +132,9 @@ function App() {
 
         {/* Item class settings */}
         {mode === 50 && <ItemClassPage />}
+
+        {/* Item settings */}
+        {mode === 60 && <Items />}
 
         {/* Admin settings */}
         {mode === 70 && <AdminSettings />}

@@ -121,6 +121,55 @@ const alert_message = (alert) => {
         </div>
       );
 
+    case 18:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          無法獲得器材資訊
+        </div>
+      );
+
+    case 19:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          更新失敗
+        </div>
+      );
+
+    case 20:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          無法刪除已出現在租借表單中之器材
+        </div>
+      );
+
+    case 21:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          刪除器材失敗
+        </div>
+      );
+
+    case 22:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          名稱或編號不可為空
+        </div>
+      );
+
+    case 23:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          新增器材失敗
+        </div>
+      );
+
+    case 24:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          請選擇物品型號
+        </div>
+      );
+
     default:
       return <div></div>;
   }

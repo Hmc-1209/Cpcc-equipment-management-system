@@ -126,7 +126,7 @@ export const update_item_class = async (class_id, new_name) => {
 
   const token = window.localStorage.getItem("access_token");
 
-  const body = { name: new_name };
+  const body = { class_name: new_name };
 
   try {
     const response = await fetch(`${path}/item_class/${class_id}`, {
@@ -184,7 +184,7 @@ export const add_new_item_class = async (name) => {
   // Add new item class
 
   const token = window.localStorage.getItem("access_token");
-  const body = { name: name };
+  const body = { class_name: name };
 
   try {
     const response = await fetch(`${path}/item_class/`, {
@@ -195,6 +195,198 @@ export const add_new_item_class = async (name) => {
         accept: "application/json",
         Authorization: "Bearer " + token,
       },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const get_models = async () => {
+  // Get all models
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/model/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const get_all_items = async () => {
+  // Get all items general datas
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/item/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const get_item_detail = async (item_id) => {
+  // Get item detail
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/item/${item_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const update_item = async (item_id, type, value) => {
+  // Delete specific item
+
+  const token = window.localStorage.getItem("access_token");
+
+  const body = {};
+  body[type] = value;
+
+  try {
+    const class_id = await get_item_detail(item_id).class_id;
+    body.class_id = class_id;
+
+    console.log(body);
+
+    const response = await fetch(`${path}/item/${item_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const delete_item = async (item_id) => {
+  // Delete specific item
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/item/${item_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+    if (response.status === 406) return 406;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const add_item = async (
+  item_name,
+  item_serial_number,
+  item_description,
+  model_id,
+  image
+) => {
+  // Add new item
+
+  const token = window.localStorage.getItem("access_token");
+  const body = {
+    item_name: item_name,
+    serial_number: item_serial_number,
+    description: item_description,
+    model_id: model_id,
+    image: image,
+  };
+
+  try {
+    const response = await fetch(`${path}/item/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
     });
 
     if (response.status === 401) return 401;
