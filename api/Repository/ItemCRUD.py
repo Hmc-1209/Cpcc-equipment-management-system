@@ -19,7 +19,7 @@ async def get_item_list_by_model(model_id: int) -> list[ItemList]:
 
 
 async def create_item(new_item: CreateItem) -> bool:
-    stmt = Item.insert().values(name=new_item.item_name,
+    stmt = Item.insert().values(item_name=new_item.item_name,
                                 description=new_item.description,
                                 serial_number=new_item.serial_number,
                                 status=0,
@@ -37,10 +37,3 @@ async def update_item_by_id(item_id: int, new_item: UpdateItem) -> bool:
 async def delete_item_by_id(item_id: int) -> bool:
     stmt = Item.delete().where(Item.c.item_id == item_id)
     return await execute_stmt_in_tran([stmt])
-
-# async def get_detail_item(item_id: int) -> DetailItem:
-#     stmt = (Item
-#             .join(ItemClass, Item.c.class_id == ItemClass.c.class_id)
-#             .select().where(Item.c.item_id == item_id))
-#
-#     return await db.fetch_one(stmt)
