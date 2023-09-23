@@ -46,3 +46,12 @@ async def update_rental_form(rental_id: int, new_form: UpdateRentalForm, _=Depen
 
     if not await update_rental_form_by_id(rental_id, update):
         raise bad_request
+
+
+@router.delete("/{rental_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_rental_form(rental_id: int, _=Depends(get_current_user)):
+    if not await get_rental_form_by_id(rental_id):
+        raise no_such_rental_form
+
+    if not await delete_rental_form_by_id(rental_id):
+        raise bad_request

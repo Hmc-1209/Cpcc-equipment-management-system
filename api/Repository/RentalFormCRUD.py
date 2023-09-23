@@ -45,3 +45,8 @@ async def update_rental_form_by_id(rental_id: int, new_form: UpdateRentalForm) -
     stmt = RentalForm.update().where(RentalForm.c.rental_id == rental_id).values(return_date=new_form.return_date,
                                                                                  status=new_form.status)
     return await execute_stmt_in_tran([stmt])
+
+
+async def delete_rental_form_by_id(rental_id: int) -> bool:
+    stmt = RentalForm.delete().where(RentalForm.c.rental_id == rental_id)
+    return await execute_stmt_in_tran([stmt])
