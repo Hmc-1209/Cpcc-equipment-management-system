@@ -31,7 +31,7 @@ async def create_new_item(new_item: CreateItem, _=Depends(get_current_user)) -> 
         raise bad_request
 
 
-@router.patch("/{item_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.patch("/{item_id}")
 async def update_item(item_id: int, new_item: UpdateItem, _=Depends(get_current_user)) -> None:
     item = await get_item_by_id(item_id=item_id)
     if not item:

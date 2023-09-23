@@ -35,7 +35,7 @@ async def create_new_rental_form(new_form: CreateRentalForm, _=Depends(get_curre
         raise bad_request
 
 
-@router.patch("/{rental_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.patch("/{rental_id}")
 async def update_rental_form(rental_id: int, new_form: UpdateRentalForm, _=Depends(get_current_user)) -> None:
     rental_form = await get_rental_form_by_id(rental_id)
     if not rental_form:
