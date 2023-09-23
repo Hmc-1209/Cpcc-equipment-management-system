@@ -38,6 +38,7 @@ class CompleteModel(BaseModel):
 
 # ----- Schemas for Item table -----
 class BaseItem(BaseModel):
+    name: str
     serial_number: str
 
 
@@ -46,8 +47,26 @@ class ItemList(BaseItem):
 
 
 class ItemDetailList(ItemList):
-    name: str
+    status: int
+    image: str
+
+
+class CreateItem(BaseItem):
+    description: str
     status: int = 1
+    model_id: int
+    image: str
+
+    class Config:
+        from_attributes = True
+
+
+class UpdateItem(BaseModel):
+    description: str | None = None
+    status: int | None = None
+
+    class Config:
+        from_attributes = True
 
 
 # ----- Schemas for Rental Form table -----
