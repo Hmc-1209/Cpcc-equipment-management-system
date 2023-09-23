@@ -19,6 +19,9 @@ invalid_class_id = HTTPException(status_code=status.HTTP_406_NOT_ACCEPTABLE,
 no_such_item_class = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                                    detail="Item class not found.")
 
+no_such_model = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                              detail="Model not found.")
+
 no_such_item = HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                              detail="Item not found.")
 

@@ -17,6 +17,14 @@ ItemClass = sqlalchemy.Table(
     Column("class_name", sqlalchemy.VARCHAR(25), nullable=False, unique=True)
 )
 
+Model = sqlalchemy.Table(
+    "Model",
+    metadata,
+    Column("model_id", sqlalchemy.INTEGER, primary_key=True, index=True),
+    Column("model_name", sqlalchemy.VARCHAR(25), nullable=False, unique=True),
+    Column("class_id", sqlalchemy.INTEGER, ForeignKey("ItemClass.class_id"), nullable=False)
+)
+
 Item = sqlalchemy.Table(
     "Item",
     metadata,
@@ -24,9 +32,8 @@ Item = sqlalchemy.Table(
     Column("name", sqlalchemy.VARCHAR(25), nullable=False),
     Column("description", sqlalchemy.VARCHAR(255)),
     Column("serial_number", sqlalchemy.VARCHAR(25), nullable=False),
-    Column("model", sqlalchemy.VARCHAR(25), nullable=False),
     Column("status", sqlalchemy.INTEGER, nullable=False),
-    Column("class_id", sqlalchemy.INTEGER, ForeignKey("ItemClass.class_id"), nullable=False),
+    Column("model_id", sqlalchemy.INTEGER, ForeignKey("Model.model_id"), nullable=False),
     Column("image", sqlalchemy.BLOB)
 )
 

@@ -9,7 +9,9 @@ app = FastAPI()
 app.include_router(Router.token)
 app.include_router(Router.user)
 app.include_router(Router.item_class)
+app.include_router(Router.model)
 app.include_router(Router.item)
+app.include_router(Router.rental_form)
 
 app.add_middleware(
     CORSMiddleware,

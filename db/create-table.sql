@@ -39,6 +39,14 @@ CREATE TABLE ItemClass
     class_name VARCHAR(25) NOT NULL UNIQUE
 );
 
+CREATE TABLE Model
+(
+    model_id   INT AUTO_INCREMENT PRIMARY KEY,
+    model_name VARCHAR(25) NOT NULL UNIQUE,
+    class_id   INT         NOT NULL,
+    FOREIGN KEY (class_id) REFERENCES ItemClass (class_id)
+);
+
 -- Create ITEM table
 CREATE TABLE Item
 (
@@ -46,10 +54,9 @@ CREATE TABLE Item
     name          VARCHAR(25) NOT NULL,
     description   VARCHAR(255),
     serial_number VARCHAR(25) NOT NULL,
-    model         VARCHAR(25) NOT NULL,
     status        INT         NOT NULL,
-    class_id      INT         NOT NULL,
-    FOREIGN KEY (class_id) REFERENCES ItemClass (class_id),
+    model_id      INT         NOT NULL,
+    FOREIGN KEY (model_id) REFERENCES Model (model_id),
     image         BLOB
 );
 

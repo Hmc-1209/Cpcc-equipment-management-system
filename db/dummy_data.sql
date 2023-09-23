@@ -7,12 +7,19 @@ INSERT INTO ItemClass(class_name)
 VALUES ('dog'),
        ('cat');
 
-INSERT INTO Item (name, description, serial_number, model, status, class_id, image)
-VALUES ('OrangeCat', 'A lazy orange cat.', 'C001', '11', 0, 2, '/x11/x22'),
-       ('CalicoCat', 'Calico cat 1.', 'C002', '12', 0, 2, '/x22/x22'),
-       ('Border Collie1', 'A dog.', 'D001', '13', 0, 1, '/x33/x22'),
-       ('Border Collie2', 'Another dog.', 'D002', '14', 0, 1, '/x44/x22'),
-       ('Gray cat', 'A cute gray cat.', 'C003', '15', 0, 2, '/x55/x22');
+INSERT INTO Model(model_name, class_id)
+    VALUE ('11', 2),
+    ('12', 2),
+    ('13', 1),
+    ('14', 1),
+    ('15', 2);
+
+INSERT INTO Item (name, description, serial_number, status, model_id, image)
+VALUES ('OrangeCat', 'A lazy orange cat.', 'C001', 0, 1, '/x11/x22'),
+       ('CalicoCat', 'Calico cat 1.', 'C002', 0, 2, '/x22/x22'),
+       ('Border Collie1', 'A dog.', 'D001', 0, 3, '/x33/x22'),
+       ('Border Collie2', 'Another dog.', 'D002', 0, 4, '/x44/x22'),
+       ('Gray cat', 'A cute gray cat.', 'C003', 0, 5, '/x55/x22');
 
 INSERT INTO RentalForm (student_name, student_id, phone_number, contact_info, note, lend_date, due_date, rent, pay_date,
                         return_date, status, item_id)
