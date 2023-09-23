@@ -1,4 +1,4 @@
-from models import ItemClass, Item
+from models import ItemClass, Model
 from schemas import BaseItemClass, CompleteItemClass
 from database import db, execute_stmt_in_tran
 
@@ -29,6 +29,6 @@ async def update_class(class_id: int, item_class: BaseItemClass):
 
 
 async def delete_class(class_id: int) -> bool:
-    stmt1 = Item.update().where(ItemClass.c.class_id == class_id).values(class_id=1)
+    stmt1 = Model.update().where(Model.c.class_id == class_id).values(class_id=1)
     stmt2 = ItemClass.delete().where(ItemClass.c.class_id == class_id)
     return await execute_stmt_in_tran([stmt1, stmt2])
