@@ -24,8 +24,8 @@ const ItemClassPage = () => {
   const editingReset = (class_id, value = null) => {
     if (!class_id) return;
     if (
-      itemClasses.find((itemClass) => itemClass.class_id === class_id).name ===
-      value
+      itemClasses.find((itemClass) => itemClass.class_id === class_id)
+        .class_name === value
     ) {
       setEditingItemClass(0);
       return;
@@ -39,7 +39,7 @@ const ItemClassPage = () => {
         setItemClasses(
           itemClasses.map((itemClass) => {
             if (itemClass.class_id === class_id)
-              return { ...itemClass, name: value };
+              return { ...itemClass, class_name: value };
             return itemClass;
           })
         );
@@ -80,7 +80,7 @@ const ItemClassPage = () => {
     // Add specific item class if name is legal
 
     const add = async () => {
-      if (itemClasses.find((itemClass) => itemClass.name === name)) {
+      if (itemClasses.find((itemClass) => itemClass.class_name === name)) {
         setAlert(16);
         setNewItemClass(0);
         return;
@@ -181,36 +181,40 @@ const ItemClassPage = () => {
             )}
             {Array.isArray(itemClasses) &&
               itemClasses.map((item) => (
-                <div className="itemClassSection" key={item.name}>
+                <div className="itemClassSection" key={item.class_name}>
                   {editingItemClass !== item.class_id ? (
                     <>
-                      <div className="itemClassName">{item.name}</div>
-                      <div className="itemClassMarkBtn"></div>
-                      {itemClassLoading === 0 ? (
+                      <div className="itemClassName">{item.class_name}</div>
+                      {item.class_id !== 1 && (
                         <>
-                          <i
-                            className="fa fa-pencil itemClassEditBtn"
-                            onClick={() => {
-                              setEditingItemClass(item.class_id);
-                              setNewItemClass(0);
-                            }}
-                          ></i>
-                          <i
-                            className="fa fa-minus-square itemClassDelBtn"
-                            onClick={() => delete_itemClass(item.class_id)}
-                          ></i>
+                          <div className="itemClassMarkBtn"></div>
+                          {itemClassLoading === 0 ? (
+                            <>
+                              <i
+                                className="fa fa-pencil itemClassEditBtn"
+                                onClick={() => {
+                                  setEditingItemClass(item.class_id);
+                                  setNewItemClass(0);
+                                }}
+                              ></i>
+                              <i
+                                className="fa fa-minus-square itemClassDelBtn"
+                                onClick={() => delete_itemClass(item.class_id)}
+                              ></i>
+                            </>
+                          ) : (
+                            itemClassLoading === item.class_id && (
+                              <Loading classes="itemClassLoading" />
+                            )
+                          )}
                         </>
-                      ) : (
-                        itemClassLoading === item.class_id && (
-                          <Loading classes="itemClassLoading" />
-                        )
                       )}
                     </>
                   ) : (
                     <>
                       <input
                         className="itemClassNameInput"
-                        defaultValue={item.name}
+                        defaultValue={item.class_name}
                         autoFocus={true}
                         id={"itemClass"}
                       ></input>

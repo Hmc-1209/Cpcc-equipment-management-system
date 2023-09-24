@@ -99,6 +99,16 @@
   .itemClassPage {
     width: 80%;
   }
+  .itemClassName,
+  .itemClassNameInput {
+    width: 60%;
+  }
+  .itemClassMarkBtn,
+  .itemClassDelBtn,
+  .itemClassEditBtn {
+    width: 15%;
+  }
+
 }
 
 @media screen and (max-width: 1023px) and (min-width: 768px) {
