@@ -1,0 +1,90 @@
+.equipmentInventoryItemsPage {
+  font-weight: bold;
+  font-size: 150%;
+  margin:0 auto;
+  width: 70%;
+  height:70vh;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-content: flex-start;
+}
+
+.itemModelName {
+  position: relative;
+  min-height: 0;
+  text-align: center;
+  padding: 0;
+  width: 100%;
+  height: 5%;
+  font-size: 150%;
+  justify-content: center;
+  margin:auto;
+  color:white;
+}
+
+.itemSection {
+  width: 80%;
+  margin:auto;
+  display: flex;
+}
+
+.item_SerialNumber {
+  position: relative;
+  margin:auto;
+  margin-top:5%;
+  font-size:150%;
+  width: 30%;
+  height:10%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  border: 2px white solid;  
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+}
+
+.item_Name {
+  margin:0;
+  width: 100%;
+}
+
+.item_SerialNumber::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 100%; 
+  background-color: #ababab67; 
+  transition: width 0.3s ease; 
+  transform-origin: left; 
+}
+
+.item_SerialNumber:hover::before {
+  width: 100%;
+}
+
+.green {
+  color: rgb(37, 137, 37);
+}
+
+.red {
+  color: red;
+}
+
+@media screen and (max-width: 529px){
+  .itemSection {
+    width: 90%;
+  }
+  .itemModelName {
+    font-size: 100%;
+  }
+  .item_SerialNumber {
+    font-size:100%;
+  }
+}
+

@@ -3,18 +3,14 @@ import "../css/rentalForm.css";
 import DatePicker from "./common/DatePicker";
 import { AppContext } from "../App";
 import alert_message from "./functions/alert";
+import { get_all_items, send_rental_form } from "../requests";
+import Loading from "./functions/loading";
 
 export const rentalFormContext = createContext(null);
 const date = new Date();
 
-const rentalItemsData = [
-  { value: "相機1", label: "相機1", disabled: false },
-  { value: "相機2", label: "相機2", disabled: true },
-  { value: "腳架1", label: "腳架1", disabled: false },
-];
-
 export default function RentalForm() {
-  let { alert, setAlert } = useContext(AppContext);
+  let { alert, setAlert, logOut } = useContext(AppContext);
 
   const [rentalItems, setRentalItems] = useState([]);
   const [lendDate, setLendDate] = useState([
@@ -34,33 +30,76 @@ export default function RentalForm() {
   ]);
   const [editingItem, setEditingItem] = useState(null);
   const [selectedRentalItem, setSelectedRentalItem] = useState("");
+  const [sendingRentalForm, setSendingRentalForm] = useState(false);
+  const phone_format = /^09\d{8}$/;
 
   const setLendDateSelecting = () => setEditingItem(1);
   const setDueDateSelecting = () => setEditingItem(2);
   const setPayDateSelecting = () => setEditingItem(3);
 
-  const submitForm = () => {
-    const body = {
-      renter_name: document.getElementById("fname").value,
-      renter_student_id: document.getElementById("fstudent_id").value,
-      rental_item: document.getElementById("formRenterItemSelect").value,
-      rental_lend_date: document.getElementById("rentalLendDate").innerText,
-      rental_due_date: document.getElementById("rentalDueDate").innerText,
-      rental_description: document.getElementById("fdescription").value,
-    };
-    if (body.renter_name === "" || body.renter_student_id === "") {
+  const submitForm = async () => {
+    setSendingRentalForm(true);
+    const renter_name = document.getElementById("fname").value;
+    const renter_student_id = document.getElementById("fstudent_id").value;
+    const rental_item = document.getElementById("formRenterItemSelect").value;
+    const rental_lend_date =
+      document.getElementById("rentalLendDate").innerText;
+    const rental_due_date = document.getElementById("rentalDueDate").innerText;
+    const rental_pay_date = document.getElementById("rentalPayDate").innerText;
+    const rental_description = document.getElementById("fdescription").value;
+    const renter_phone_number = document.getElementById("fphone_number").value;
+    const renter_contact_info = document.getElementById("fcontact_info").value;
+
+    if (renter_name === "" || renter_student_id === "") {
       setAlert(1);
-    } else if (body.rental_item === "") {
+      setSendingRentalForm(false);
+      return;
+    } else if (rental_item === "") {
       setAlert(2);
+      setSendingRentalForm(false);
+      return;
+    } else if (!phone_format.test(renter_phone_number)) {
+      setAlert(26);
+      setSendingRentalForm(false);
+      return;
+    } else if (renter_student_id.length > 9) {
+      setAlert(29);
+      setSendingRentalForm(false);
+      return;
     }
-    console.log(body);
+
+    const result = await send_rental_form(
+      renter_name,
+      renter_student_id,
+      rental_lend_date,
+      rental_due_date,
+      renter_phone_number,
+      renter_contact_info,
+      rental_description,
+      rental_pay_date,
+      500,
+      rentalItems.find((item) => item.item_name === rental_item).item_id
+    );
+
+    if (result === 401) logOut();
+    if (result) {
+      setAlert(27);
+      setSendingRentalForm(false);
+      return;
+    }
+    setAlert(28);
+    setSendingRentalForm(false);
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      setRentalItems(rentalItemsData);
-    }, 500);
+    const get_data = async () => {
+      let data = await get_all_items();
+      if (data) {
+        setRentalItems(data);
+      }
+    };
 
+    get_data();
     // eslint-disable-next-line
   }, []);
 
@@ -109,16 +148,15 @@ export default function RentalForm() {
             </option>
             {rentalItems.map((item) => (
               <option
-                key={item.value}
-                value={item.value}
-                disabled={item.disabled}
+                key={item.item_name}
+                value={item.item_name}
+                disabled={item.status === 0 ? false : true}
               >
-                {item.label}
+                {item.item_name}
               </option>
             ))}
           </select>
         </div>
-        <div className="formSection30"></div>
         {/* Lend date */}
         <div className="formSection30">
           <label htmlFor="fselectRentalItem" className="formLabel">
@@ -140,7 +178,7 @@ export default function RentalForm() {
         {/* Due date */}
         <div className="formSection30">
           <label htmlFor="fselectRentalItem" className="formLabel">
-            預計歸還日期
+            歸還日期
           </label>
           <div
             className="formItemDate"
@@ -163,7 +201,7 @@ export default function RentalForm() {
           <div
             className="formItemDate"
             onClick={setPayDateSelecting}
-            id="rentalDueDate"
+            id="rentalPayDate"
           >
             {payDate[0] +
               "-" +
@@ -173,6 +211,20 @@ export default function RentalForm() {
           </div>
         </div>
         {editingItem === 3 && <DatePicker />}
+        {/* Renter phone number */}
+        <div className="formSection30">
+          <label htmlFor="fphone_number" className="formLabel">
+            租借者電話
+          </label>
+          <input type="text" id="fphone_number" className="formRenterInput" />
+        </div>
+        {/* Renter contact info */}
+        <div className="formSection30">
+          <label htmlFor="fcontact_info" className="formLabel">
+            聯絡資訊
+          </label>
+          <input type="text" id="fcontact_info" className="formRenterInput" />
+        </div>
         {/* Rental description */}
         <div className="formSection40">
           <label htmlFor="fselectRentalItem" className="formLabel">
@@ -191,6 +243,11 @@ export default function RentalForm() {
             送出表單
           </button>
         </div>
+        {sendingRentalForm && (
+          <div className="back">
+            <Loading />
+          </div>
+        )}
       </form>
     </rentalFormContext.Provider>
   );

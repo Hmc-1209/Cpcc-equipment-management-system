@@ -8,6 +8,11 @@ import LogIn from "./components/authentication/logIn";
 import AdminSettings from "./components/admin/adminSettings";
 import ItemClassPage from "./components/admin/itemClass";
 import Items from "./components/admin/items";
+import ItemModels from "./components/admin/itemModel";
+import EquipmentInventory from "./components/admin/equipmentInventory/equiptmentInventory";
+import EquipmentInventoryModel from "./components/admin/equipmentInventory/equipmentInventoryModelPage";
+import EquipmentInventorySerialNumber from "./components/admin/equipmentInventory/equipmentInventorySerialNumber";
+import EquipmentInventoryRentalForm from "./components/admin/equipmentInventory/equipmentInventoryRentalForm";
 export const AppContext = createContext(null);
 
 function App() {
@@ -17,6 +22,12 @@ function App() {
   const [logOutBtn, setLogOutBtn] = useState(
     window.localStorage.getItem("isLogIn") === "true" ? true : false
   );
+  const [eIMData, setEIMData] = useState(null);
+  const [eIMLayerData, setEIMLayerData] = useState(null);
+  const [eISNData, setEISNData] = useState(null);
+  const [eISNLayerData, setEISNLayerData] = useState(null);
+  const [eIRFData, setEIRFData] = useState(null);
+  const [focusItemRF, setFocusItemRF] = useState(null);
 
   // const selectHomeMode = () => setMode(0);
   const selectRentalFormMode = () => setMode(1);
@@ -54,6 +65,18 @@ function App() {
         setMode(2);
         return;
 
+      case 11:
+        setMode(10);
+        return;
+
+      case 12:
+        setMode(11);
+        return;
+
+      case 13:
+        setMode(12);
+        return;
+
       case 20:
         setMode(2);
         return;
@@ -72,6 +95,10 @@ function App() {
 
       case 60:
         setMode(2);
+        return;
+
+      case 61:
+        setMode(60);
         return;
 
       case 70:
@@ -98,7 +125,26 @@ function App() {
 
   return (
     <AppContext.Provider
-      value={{ alert, setAlert, setMode, logOut, loading, setLoading }}
+      value={{
+        alert,
+        setAlert,
+        setMode,
+        logOut,
+        loading,
+        setLoading,
+        eIMData,
+        setEIMData,
+        eIMLayerData,
+        setEIMLayerData,
+        eISNData,
+        setEISNData,
+        eISNLayerData,
+        setEISNLayerData,
+        eIRFData,
+        setEIRFData,
+        focusItemRF,
+        setFocusItemRF,
+      }}
     >
       <div className="App">
         <header className="App-header">集美器材管理系統</header>
@@ -130,11 +176,18 @@ function App() {
         {/* Log in view */}
         {mode === 3 && <LogIn />}
 
+        {/* Equipment inventory */}
+        {mode === 10 && <EquipmentInventory />}
+        {mode === 11 && <EquipmentInventoryModel />}
+        {mode === 12 && <EquipmentInventorySerialNumber />}
+        {mode === 13 && <EquipmentInventoryRentalForm />}
+
         {/* Item class settings */}
         {mode === 50 && <ItemClassPage />}
 
         {/* Item settings */}
         {mode === 60 && <Items />}
+        {mode === 61 && <ItemModels />}
 
         {/* Admin settings */}
         {mode === 70 && <AdminSettings />}

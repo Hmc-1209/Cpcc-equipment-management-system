@@ -170,6 +170,48 @@ const alert_message = (alert) => {
         </div>
       );
 
+    case 25:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          更新失敗
+        </div>
+      );
+
+    case 26:
+      return (
+        <div className="alertMessageShort red absolute left top">
+          電話格式不符
+        </div>
+      );
+
+    case 27:
+      return (
+        <div className="alertMessageShort green absolute left top">
+          表單已送出
+        </div>
+      );
+
+    case 28:
+      return (
+        <div className="alertMessageShort red absolute left top">
+          表單送出失敗
+        </div>
+      );
+
+    case 29:
+      return (
+        <div className="alertMessageShort red absolute left top">
+          名稱或學號字數過多
+        </div>
+      );
+
+    case 30:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          獲取資料失敗
+        </div>
+      );
+
     default:
       return <div></div>;
   }

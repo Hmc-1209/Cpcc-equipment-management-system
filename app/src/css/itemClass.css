@@ -38,8 +38,8 @@
   display: flex;
 }
 
-.itemClassName,
-.itemClassNameInput {
+.item_className,
+.item_classNameInput {
   font-size: 150%;
   display: flex;
   padding-left: 5%;
@@ -48,7 +48,7 @@
   min-height: 100%;
 }
 
-.itemClassNameInput {
+.item_classNameInput {
   background-color: #282c34;
   color: white;
   border:none;
@@ -99,8 +99,8 @@
   .itemClassPage {
     width: 80%;
   }
-  .itemClassName,
-  .itemClassNameInput {
+  .item_className,
+  .item_classNameInput {
     width: 60%;
   }
   .itemClassMarkBtn,

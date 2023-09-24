@@ -1,0 +1,110 @@
+.equipmentInventoryModelPage {
+  font-weight: bold;
+  font-size: 150%;
+  margin:0 auto;
+  width: 70%;
+  height:70vh;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-content: flex-start;
+}
+
+.itemClassName {
+  position: relative;
+  min-height: 0;
+  text-align: center;
+  padding: 0;
+  width: 100%;
+  height: 5%;
+  justify-content: center;
+  margin:auto;
+  color:white;
+}
+
+.itemModelSection {
+  width: 80%;
+  margin:auto;
+  display: flex;
+}
+
+.itemModel {
+  position: relative;
+  margin:auto;
+  margin-top:5%;
+  font-size:150%;
+  width: 30%;
+  height:10%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  border: 2px white solid;  
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 5px;
+}
+
+.modelName {
+  width: 100%;
+}
+
+.modelAvailable {
+  font-size: 50%;
+}
+
+.itemModel::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 100%; 
+  background-color: #ababab67; 
+  transition: width 0.3s ease; 
+  transform-origin: left; 
+}
+
+.itemModel:hover::before {
+  width: 100%;
+}
+
+@media screen and (max-width: 529px){
+  .itemClassName {
+    font-size: medium;
+  }
+  .itemModel {
+    width: 100%;
+  }
+  .modelName {
+    font-size: 50%;
+  }
+  .modelAvailable {
+    font-size: 50%;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 530px){
+  .itemModel {
+    width: 50%;
+  }
+  .modelName {
+    font-size: 50%;
+  }
+  .modelAvailable {
+    font-size: 50%;
+  }
+}
+
+@media screen and (max-width: 1024px) and (min-width: 768px) {
+  .itemModel {
+    width: 100%;
+  }
+  .modelName {
+    font-size: 70%;
+  }
+  .modelAvailable {
+    font-size: 70%;
+  }
+}

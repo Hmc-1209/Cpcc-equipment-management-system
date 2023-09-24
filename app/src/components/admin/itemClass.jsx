@@ -150,7 +150,7 @@ const ItemClassPage = () => {
               <div className="itemClassSection greenBorder">
                 <input
                   type="text"
-                  className="itemClassNameInput"
+                  className="item_classNameInput"
                   defaultValue={""}
                   autoFocus={true}
                   id={"itemClass"}
@@ -184,7 +184,7 @@ const ItemClassPage = () => {
                 <div className="itemClassSection" key={item.class_name}>
                   {editingItemClass !== item.class_id ? (
                     <>
-                      <div className="itemClassName">{item.class_name}</div>
+                      <div className="item_className">{item.class_name}</div>
                       {item.class_id !== 1 && (
                         <>
                           <div className="itemClassMarkBtn"></div>
@@ -213,7 +213,7 @@ const ItemClassPage = () => {
                   ) : (
                     <>
                       <input
-                        className="itemClassNameInput"
+                        className="item_classNameInput"
                         defaultValue={item.class_name}
                         autoFocus={true}
                         id={"itemClass"}

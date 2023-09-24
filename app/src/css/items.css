@@ -91,11 +91,23 @@
 }
 
 .addItemBtn {
-  width: 100%;
+  margin-left:5%;
+  margin-right:5%;
+  width: 40%;
   height: 8%;
   border-radius: 5px;
   border:none;
 }
+
+.manageModelBtn {
+  margin-left:5%;
+  margin-right:5%;
+  width: 40%;
+  height: 8%;
+  border-radius: 5px;
+  border:none;
+}
+
 .addItemBtn:active {
   background-color: rgb(174, 174, 174);
 }
@@ -127,6 +139,35 @@
   height:10%;
   overflow-y: auto;
 }
+
+.itemCog {
+  padding:1%;
+  font-size: 150%;
+  width: 15%;
+  color: white;
+  position: absolute;
+  right:3%;
+  top:3%;
+}
+
+.itemCog:hover {
+  transform: rotate(45deg);
+}
+
+.itemApplyChange {
+  padding:1%;
+  font-size: 150%;
+  width: 15%;
+  color: rgb(38, 179, 43);
+  position: absolute;
+  right:3%;
+  top:3%;
+}
+
+.itemApplyChange:hover {
+  font-size: 170%;
+}
+
 
 .inStock {
   color: white;
@@ -188,7 +229,30 @@
   border-radius: 10px;
 }
 
-@media screen and (max-width: 767px){
+.itemNameEdit {
+  text-align: center;
+  margin-top:10%;
+  background-color: rgb(64, 64, 64);
+  color:white;
+  border:none;
+}
+
+.itemSerialNumberEdit {
+  text-align: center;
+  background-color: rgb(64, 64, 64);
+  color:white;
+  border:none;
+}
+
+@media screen and (max-width: 529px){
+  .manageModelBtn {
+    font-size: medium;
+  }
+  
+  .addItemBtn {
+    font-size: medium;
+  }
+
   .itemAdd {
     width: 90%;
     height: 50%;
@@ -197,11 +261,30 @@
 
   .item {
     width: 90%;
-    height: 50%;
+    height: 70%;
   }
   
   .itemPad {
     width: 30%;
+    height:1%;
+    margin:auto;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 530px){
+  .itemAdd {
+    width: 90%;
+    height: 85%;
+    font-size: medium;
+  }
+
+  .item {
+    width: 90%;
+    height: 85%;
+  }
+  
+  .itemPad {
+    width: 90%;
     height:1%;
     margin:auto;
   }
@@ -215,7 +298,7 @@
 
   .item {
     width: 45%;
-    height: 50%;
+    height: 450px;
   }
   
   .itemPad {

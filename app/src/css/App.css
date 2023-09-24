@@ -85,6 +85,9 @@ body {
 }
 
 @media screen and (max-width: 767px){
+  .App-header {
+    min-height: 15vh;
+  }
   .homeSelectButton {
     width: 80%;
     height: 20vh;

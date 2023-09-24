@@ -1,0 +1,56 @@
+.equipmentInventoryPage {
+  font-weight: bold;
+  font-size: 150%;
+  margin:0 auto;
+  width: 70%;
+  height:70vh;
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-content: flex-start;
+}
+
+.itemClass {
+  position: relative;
+  margin:auto;
+  margin-top:5%;
+  font-size:150%;
+  width: 30%;
+  height:10%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  border: 2px white solid;  
+  display: flex;
+  border-radius: 5px;
+}
+
+.itemClass::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 100%; 
+  background-color: #ababab67; 
+  transition: width 0.3s ease; 
+  transform-origin: left; 
+}
+
+.itemClass:hover::before {
+  width: 100%;
+}
+
+@media screen and (max-width: 529px){
+  
+}
+
+@media screen and (max-width: 767px) and (min-width: 530px){
+
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  
+}

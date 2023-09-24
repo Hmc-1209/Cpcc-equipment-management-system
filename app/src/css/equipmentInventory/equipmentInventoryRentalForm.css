@@ -1,0 +1,159 @@
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+
+
+  .equipmentInventoryRentalFormsPage {
+    font-weight: bold;
+    font-size: 150%;
+    margin:0 auto;
+    width: 70%;
+    height:70vh;
+    overflow-y: auto;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-content: flex-start;
+  }
+  
+
+  .item_Serial_Number {
+    position: relative;
+    min-height: 0;
+    text-align: center;
+    padding: 0;
+    width: 100%;
+    height: 5%;
+    font-size: 150%;
+    justify-content: center;
+    margin:auto;
+    color:white;
+  }
+
+  p {
+    color: aquamarine;
+    padding: 0;
+    margin: 0;
+    display: inline;
+    height: 35px;
+  }
+
+  .rental_form {
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
+    color: white;
+    border: 2px white solid;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .rental_st_name,
+  .rental_st_id,
+  .rental_st_phone,
+  .rental_lend_date,
+  .rental_due_date,
+  .rental_pay_date,
+  .rental_note,
+  .rental_contact_info,
+  .rental_rent,
+  .rental_return_date {
+    text-align: left;
+    padding-left: 2%;
+    margin:0;
+    width: 30%;
+    height: 35px;
+    overflow-y: auto;
+  }
+
+
+  @media screen and (max-width: 529px){
+    .equipmentInventoryRentalFormsPage {
+      width: 90%;
+    }
+
+    .item_Serial_Number {
+      margin-bottom: 5%;
+    }
+
+    .rental_st_name,
+    .rental_st_id,
+    .rental_st_phone,
+    .rental_lend_date,
+    .rental_due_date,
+    .rental_pay_date,
+    .rental_note,
+    .rental_contact_info,
+    .rental_rent,
+    .rental_return_date {
+      font-size: xx-small;
+      font-size: medium;
+      text-align: left;
+      padding-left: 2%;
+      margin:0;
+      width: 50%;
+      height: 25px;
+      overflow-y: auto;
+    }
+  }
+  
+  @media screen and (max-width: 767px) and (min-width: 530px){
+    .equipmentInventoryRentalFormsPage {
+      width: 90%;
+    }
+
+    .item_Serial_Number {
+      margin-bottom: 5%;
+    }
+    .rental_st_name,
+    .rental_st_id,
+    .rental_st_phone,
+    .rental_lend_date,
+    .rental_due_date,
+    .rental_pay_date,
+    .rental_note,
+    .rental_contact_info,
+    .rental_rent,
+    .rental_return_date {
+      font-size: small;
+      text-align: left;
+      padding-left: 2%;
+      margin:0;
+      width: 50%;
+      height: 20px;
+      overflow-y: auto;
+    }
+  }
+  
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    .equipmentInventoryRentalFormsPage {
+      width: 90%;
+    }
+
+    .item_Serial_Number {
+      margin-bottom: 5%;
+    }
+    .rental_st_name,
+    .rental_st_id,
+    .rental_st_phone,
+    .rental_lend_date,
+    .rental_due_date,
+    .rental_pay_date,
+    .rental_note,
+    .rental_contact_info,
+    .rental_rent,
+    .rental_return_date {
+      font-size: medium;
+      text-align: left;
+      padding-left: 2%;
+      margin:0;
+      width: 50%;
+      height: 35px;
+      overflow-y: auto;
+    }
+  }
+  

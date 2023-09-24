@@ -15,11 +15,12 @@ const Items = () => {
   const [items, setItems] = useState([]);
   const [itemsLoading, setItemsLoading] = useState(false);
   const [pad, setPad] = useState(0);
+  const [itemEditing, setItemEditing] = useState(0);
   const [itemUpdating, setItemUpdating] = useState(0);
   const [newItem, setNewItem] = useState(false);
   const [models, setModels] = useState([]);
 
-  let { alert, setAlert, logOut } = useContext(AppContext);
+  let { alert, setAlert, logOut, setMode } = useContext(AppContext);
 
   const itemClassName = (itemStatus) => {
     switch (itemStatus) {
@@ -96,12 +97,14 @@ const Items = () => {
 
     if (itemName === "" || itemSerialNumber === "") {
       setItemUpdating(0);
+      setNewItem(false);
       setAlert(22);
       return;
     }
 
     if (!itemModel || itemModel === "") {
       setItemUpdating(0);
+      setNewItem(false);
       setAlert(24);
       return;
     }
@@ -155,8 +158,34 @@ const Items = () => {
       setItemUpdating(0);
       return;
     }
+    setNewItem(false);
     setItemUpdating(0);
     setAlert(23);
+  };
+
+  const setItemChange = async (item_id) => {
+    setItemUpdating(item_id);
+    const des = document.getElementById("itemDescriptionEdit").value;
+    if (des === "") {
+      setItemUpdating(0);
+      setItemEditing(0);
+      return;
+    }
+
+    const result = await update_item(item_id, "description", des);
+
+    if (result === 401) logOut();
+
+    if (result) {
+      const new_item = await get_all_items();
+      if (new_item) setItems(new_item);
+      setItemUpdating(0);
+      setItemEditing(0);
+      return;
+    }
+    setItemUpdating(0);
+    setItemEditing(0);
+    setAlert(25);
   };
 
   useEffect(() => {
@@ -195,9 +224,12 @@ const Items = () => {
           </div>
           <div className="itemsPage">
             <button className="addItemBtn" onClick={() => setNewItem(!newItem)}>
-              +
+              + 新增物品
             </button>
-            {newItem && (
+            <button className="manageModelBtn" onClick={() => setMode(61)}>
+              調整型號
+            </button>
+            {newItem !== false && (
               <div className="itemAdd">
                 <label htmlFor="item_name" className="addItemLabel">
                   物品名稱
@@ -257,26 +289,58 @@ const Items = () => {
             )}
             {items.map((item) => (
               <div className="item" key={item.item_id}>
-                <div className={"itemName" + itemClassName(item.status)}>
-                  {item.item_name}
-                </div>
-                <div className="itemSerialNumber">{item.serial_number}</div>
-                {item.image !== "" ? (
-                  <img
-                    src={"data:image/jpeg;base64," + item.image}
-                    alt="物品圖片"
-                  />
+                {itemEditing !== item.item_id ? (
+                  <>
+                    <div className={"itemName" + itemClassName(item.status)}>
+                      {item.item_name}
+                    </div>
+                    <div className="itemSerialNumber">{item.serial_number}</div>
+                    {item.image !== "" ? (
+                      <img
+                        src={"data:image/jpeg;base64," + item.image}
+                        alt="物品圖片"
+                      />
+                    ) : (
+                      <div className="itemNoPic">無圖片提供</div>
+                    )}
+                    <div>
+                      {
+                        models.find(
+                          (model) => model.model_id === item.model_id
+                        )["model_name"]
+                      }
+                    </div>
+                    <div className="itemDescription">{item.description}</div>
+                  </>
                 ) : (
-                  <div className="itemNoPic">無圖片提供</div>
+                  <>
+                    <div className={"itemName" + itemClassName(item.status)}>
+                      {item.item_name}
+                    </div>
+                    <div className="itemSerialNumber">{item.serial_number}</div>
+                    {item.image !== "" ? (
+                      <img
+                        src={"data:image/jpeg;base64," + item.image}
+                        alt="物品圖片"
+                      />
+                    ) : (
+                      <div className="itemNoPic">無圖片提供</div>
+                    )}
+                    <div>
+                      {
+                        models.find(
+                          (model) => model.model_id === item.model_id
+                        )["model_name"]
+                      }
+                    </div>
+                    <input
+                      className="itemDescription"
+                      id="itemDescriptionEdit"
+                      placeholder={item.description}
+                    />
+                  </>
                 )}
-                <div>
-                  {
-                    models.find((model) => model.model_id === item.model_id)[
-                      "model_name"
-                    ]
-                  }
-                </div>
-                <div className="itemDescription">{item.description}</div>
+
                 <div className="function">
                   <i
                     className={
@@ -317,6 +381,19 @@ const Items = () => {
                 {itemUpdating !== 0 && <div className="back"></div>}
                 {itemUpdating === item.item_id && (
                   <Loading classes="itemLoading" />
+                )}
+                {itemEditing !== item.item_id ? (
+                  <i
+                    className="fa fa-cog itemCog"
+                    aria-hidden="true"
+                    onClick={() => setItemEditing(item.item_id)}
+                  ></i>
+                ) : (
+                  <i
+                    className="fa fa-check itemApplyChange"
+                    aria-hidden="true"
+                    onClick={() => setItemChange(item.item_id)}
+                  ></i>
                 )}
               </div>
             ))}
