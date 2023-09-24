@@ -1,5 +1,5 @@
 from models import Model, Item
-from schemas import CompleteModel, DetailModel, UpdateModel, CreateModel
+from schemas import CompleteModel, DetailModel, CreateModel, UpdateModel
 from sqlalchemy.sql import text
 from database import db, execute_stmt_in_tran
 
@@ -22,8 +22,11 @@ async def get_model_by_name(name: str) -> DetailModel:
 async def get_model_list_by_class(class_id: int) -> list[CompleteModel]:
     stmt = text(
         """
-        SELECT i.model_id, model_name, COUNT(*) AS available FROM Item i 
-        LEFT JOIN Model m ON (i.model_id = m.model_id) WHERE class_id = :class_id GROUP BY (i.model_id)
+        SELECT model_id, model_name, COUNT(IF(status = 0, 1, NULL)) AS available
+        FROM Model m
+                 LEFT JOIN Item i USING (model_id)
+        WHERE class_id = :class_id
+        GROUP BY model_id;
         """)
     stmt = stmt.bindparams(class_id=class_id)
 
@@ -36,8 +39,9 @@ async def create_model(new_model: CreateModel) -> bool:
     return await db.execute(stmt)
 
 
-async def update_model_by_id(model_id: int, name: str) -> bool:
-    stmt = Model.update().where(Model.c.model_id == model_id).values(model_name=name)
+async def update_model_by_id(model_id: int, new_model: UpdateModel) -> bool:
+    stmt = Model.update().where(Model.c.model_id == model_id).values(model_name=new_model.model_name,
+                                                                     class_id=new_model.class_id)
     return await execute_stmt_in_tran([stmt])
 
 

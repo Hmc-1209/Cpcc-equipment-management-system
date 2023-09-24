@@ -28,23 +28,32 @@ class CompleteItemClass(BaseItemClass):
 
 
 # ----- Schemas for Model table -----
-class UpdateModel(BaseModel):
+class Model(BaseModel):
     model_name: str
 
     class Config:
         from_attributes = True
 
 
-class CreateModel(UpdateModel):
+class CreateModel(Model):
     class_id: int
 
 
-class DetailModel(UpdateModel):
+class DetailModel(CreateModel):
     model_id: int
 
 
-class CompleteModel(DetailModel):
+class CompleteModel(Model):
+    model_id: int
     available: int
+
+
+class UpdateModel(BaseModel):
+    model_name: str | None = None
+    class_id: int | None = None
+
+    class Config:
+        from_attributes = True
 
 
 # ----- Schemas for Item table -----

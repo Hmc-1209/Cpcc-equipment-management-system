@@ -30,15 +30,22 @@ async def create_new_model(new_model: CreateModel, _=Depends(get_current_user)) 
         raise bad_request
 
 
-@router.patch("/{model_id}", status_code=status.HTTP_204_NO_CONTENT)
+@router.patch("/{model_id}")
 async def update_model(model_id: int, new_model: UpdateModel, _=Depends(get_current_user)) -> None:
-    if not await get_model_by_id(model_id):
+    model = await get_model_by_id(model_id)
+    if not model:
         raise no_such_model
 
-    if await get_model_by_name(new_model.model_name):
+    if not await get_class_by_id(new_model.class_id):
+        raise no_such_item_class
+
+    if new_model.model_name and await get_model_by_name(new_model.model_name):
         raise duplicate_data
 
-    if not await update_model_by_id(model_id, new_model.model_name):
+    update_data = new_model.model_dump(exclude_unset=True, exclude_none=True)
+    update = UpdateModel.model_validate(model).model_copy(update=update_data)
+
+    if not await update_model_by_id(model_id, update):
         raise bad_request
 
 
