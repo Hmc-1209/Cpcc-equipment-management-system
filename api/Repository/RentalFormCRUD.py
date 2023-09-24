@@ -27,18 +27,19 @@ async def get_rental_form_by_status(status: int) -> list[CompleteRentalFormList]
 
 
 async def create_rental_form(new_form: CreateRentalForm) -> bool:
-    stmt = RentalForm.insert().values(student_name=new_form.student_name,
-                                      student_id=new_form.student_id,
-                                      phone_number=new_form.phone_number,
-                                      contact_info=new_form.contact_info,
-                                      note=new_form.note,
-                                      lend_date=new_form.lend_date,
-                                      due_date=new_form.due_date,
-                                      rent=new_form.rent,
-                                      pay_date=new_form.pay_date,
-                                      status=0,
-                                      item_id=new_form.item_id)
-    return await execute_stmt_in_tran([stmt])
+    stmt1 = RentalForm.insert().values(student_name=new_form.student_name,
+                                       student_id=new_form.student_id,
+                                       phone_number=new_form.phone_number,
+                                       contact_info=new_form.contact_info,
+                                       note=new_form.note,
+                                       lend_date=new_form.lend_date,
+                                       due_date=new_form.due_date,
+                                       rent=new_form.rent,
+                                       pay_date=new_form.pay_date,
+                                       status=0,
+                                       item_id=new_form.item_id)
+    stmt2 = Item.update().where(Item.c.item_id == new_form.item_id).values(status=1)
+    return await execute_stmt_in_tran([stmt1, stmt2])
 
 
 async def update_rental_form_by_id(rental_id: int, new_form: UpdateRentalForm) -> bool:
