@@ -36,7 +36,7 @@ async def update_model(model_id: int, new_model: UpdateModel, _=Depends(get_curr
     if not model:
         raise no_such_model
 
-    if not await get_class_by_id(new_model.class_id):
+    if new_model.class_id and not await get_class_by_id(new_model.class_id):
         raise no_such_item_class
 
     if new_model.model_name and await get_model_by_name(new_model.model_name):
