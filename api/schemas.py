@@ -121,7 +121,7 @@ class CompleteRentalFormList(RentalFormList):
 
 
 class UpdateRentalForm(BaseModel):
-    return_date: date = None
+    return_date: date | None = None
     status: int
 
     class Config:
