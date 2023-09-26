@@ -14,6 +14,11 @@ async def item_list(_=Depends(get_current_user)) -> list[ItemDetailList]:
     return await get_item_list()
 
 
+@router.get("/in_stock")
+async def item_list_in_stock(_=Depends(get_current_user)) -> list[ItemTypeList]:
+    return await get_item_list_in_stock()
+
+
 @router.get("/by_model/{model_id}")
 async def item_list_by_model(model_id: int, _=Depends(get_current_user)) -> list[ItemList]:
     if not await get_model_by_id(model_id):

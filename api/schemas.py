@@ -73,6 +73,14 @@ class ItemDetailList(ItemList):
     model_id: int
 
 
+class ItemTypeList(BaseModel):
+    item_id: int
+    item_name: str
+    serial_number: str
+    model_name: str
+    class_name: str
+
+
 class CreateItem(BaseItem):
     model_id: int
     image: str

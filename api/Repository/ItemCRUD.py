@@ -1,5 +1,5 @@
-from models import Item
-from schemas import BaseItem, ItemList, ItemDetailList, CreateItem, UpdateItem
+from models import Item, Model, ItemClass
+from schemas import BaseItem, ItemList, ItemDetailList, CreateItem, UpdateItem, ItemTypeList
 from database import db, execute_stmt_in_tran
 
 
@@ -11,6 +11,14 @@ async def get_item_list() -> list[ItemDetailList]:
 async def get_item_by_id(item_id: int) -> BaseItem:
     stmt = Item.select().where(Item.c.item_id == item_id)
     return await db.fetch_one(stmt)
+
+
+async def get_item_list_in_stock() -> list[ItemTypeList]:
+    stmt = (Item
+            .join(Model, Item.c.model_id == Model.c.model_id)
+            .join(ItemClass, Model.c.class_id == ItemClass.c.class_id)
+            .select().where(Item.c.status == 0))
+    return await db.fetch_all(stmt)
 
 
 async def get_item_list_by_model(model_id: int) -> list[ItemList]:
