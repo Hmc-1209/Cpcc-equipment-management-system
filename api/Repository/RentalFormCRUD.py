@@ -46,10 +46,16 @@ async def update_rental_form_by_id(rental_id: int, new_form: UpdateRentalForm) -
     stmt1 = RentalForm.update().where(RentalForm.c.rental_id == rental_id).values(return_date=new_form.return_date,
                                                                                   status=new_form.status)
     stmt_list = [stmt1]
-    if new_form.status == 2:
-        form = CreateRentalForm.model_validate(await get_rental_form_by_id(rental_id))
-        stmt2 = Item.update().where(Item.c.item_id == form.item_id).values(status=0)
-        stmt_list.append(stmt2)
+    form = CreateRentalForm.model_validate(await get_rental_form_by_id(rental_id))
+
+    match new_form.status:
+        case 1:
+            stmt2 = Item.update().where(Item.c.item_id == form.item_id).values(status=1)
+            stmt_list.append(stmt2)
+
+        case 2:
+            stmt2 = Item.update().where(Item.c.item_id == form.item_id).values(status=0)
+            stmt_list.append(stmt2)
 
     return await execute_stmt_in_tran(stmt_list)
 
