@@ -10,7 +10,7 @@ router = APIRouter(prefix="/item", tags=["Item"])
 
 
 @router.get("/")
-async def item_list(_=Depends(get_current_user)) -> list[ItemDetailList]:
+async def item_list() -> list[ItemDetailList]:
     return await get_item_list()
 
 
