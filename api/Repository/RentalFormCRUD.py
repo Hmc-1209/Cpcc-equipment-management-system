@@ -50,7 +50,7 @@ async def update_rental_form_by_id(rental_id: int, new_form: UpdateRentalForm) -
 
     match new_form.status:
         case 1:
-            stmt2 = Item.update().where(Item.c.item_id == form.item_id).values(status=1)
+            stmt2 = Item.update().where(Item.c.item_id == form.item_id).values(status=2)
             stmt_list.append(stmt2)
 
         case 2:

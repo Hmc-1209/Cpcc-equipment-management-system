@@ -3,7 +3,7 @@ import "../css/adminPage.css";
 import { AppContext } from "../App";
 
 export default function AdminPage() {
-  let { setMode } = useContext(AppContext);
+  let { setMode, setAdminRent } = useContext(AppContext);
 
   return (
     <>
@@ -24,7 +24,10 @@ export default function AdminPage() {
 
         <button
           className="adminSelectButton primaryColor"
-          onClick={() => setMode(30)}
+          onClick={() => {
+            setAdminRent(true);
+            setMode(30);
+          }}
         >
           新增借用請求
         </button>

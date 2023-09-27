@@ -19,10 +19,10 @@ const DatePicker = () => {
     editingItem,
     setEditingItem,
   } = useContext(rentalFormContext);
-  let { setAlert } = useContext(AppContext);
+  let { setAlert, adminRent } = useContext(AppContext);
   const [year, setYear] = useState(0);
   const [month, setMonth] = useState(0);
-
+  console.log(adminRent);
   useEffect(() => {
     const dateType =
       editingItem === 1 ? lendDate : editingItem === 2 ? dueDate : payDate;
@@ -75,7 +75,15 @@ const DatePicker = () => {
         "-" +
         String(lendDate[2]).padStart(2, "0")
     );
-    if (editingItem === 2) {
+
+    const specDate = new Date(year, month - 1, day);
+    const today = new Date();
+    specDate.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
+
+    if (today > specDate) return false;
+
+    if (!adminRent && editingItem === 2) {
       const nowDueDate = new Date(
         year +
           "-" +
@@ -115,8 +123,7 @@ const DatePicker = () => {
         (nowPayDate.getTime() - nowLendDate.getTime()) / (1000 * 60 * 60 * 24)
       );
       if (
-        time < 0 ||
-        time > 9 ||
+        (!adminRent && (time < 0 || time > 9)) ||
         time_before_return < 0 ||
         time_before_start < 0
       ) {

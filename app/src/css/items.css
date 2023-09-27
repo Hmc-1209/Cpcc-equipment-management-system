@@ -21,15 +21,21 @@
 
 .itemAdd {
   width: 30%;
-  height: 70%;
+  height: 80%;
   margin:auto;
-  margin-top:5%;
+  margin-top:3%;
   background-color: rgb(64, 64, 64);
   color:white;
   border:2px rgb(13, 144, 13) solid;
   position: relative;
   border-radius: 10px;
   padding: 2%;
+}
+
+.warn {
+  font-size: 120%;
+  color:red;
+  margin: auto;
 }
 
 .addItemLabel {
@@ -42,6 +48,7 @@
   border: 1px white solid;
   border-radius: 5px;
   width: 80%;
+  height: 10%;
   margin-left: 10%;
   margin-right: 10%;
 }
@@ -50,6 +57,11 @@
   margin: 5% 25% 5% 25%;
   font-size: 70%;
   width: 50%;
+  height: 10%;
+}
+
+.modelSelect {
+  height: 8%;
 }
 
 .addItemDescription {
@@ -74,9 +86,9 @@
 
 .item {
   width: 30%;
-  height: 70%;
+  height: 80%;
   margin:auto;
-  margin-top:5%;
+  margin-top:3%;
   background-color: rgb(64, 64, 64);
   color:white;
   border:2px white solid;
@@ -244,7 +256,15 @@
   border:none;
 }
 
-@media screen and (max-width: 529px){
+.orange {
+  color:orange;
+}
+
+@media screen and (max-width: 290px) {
+  .itemsPage {
+    width: 90%;
+  }
+
   .manageModelBtn {
     font-size: medium;
   }
@@ -253,21 +273,79 @@
     font-size: medium;
   }
 
+  .addItemInputImage {
+    margin: 5% 25% 5% 25%;
+    font-size: 70%;
+    width: 50%;
+    height: 10%;
+  }
+  
+  .modelSelect {
+    width: 50%;
+    height: 10%;
+  }
+
   .itemAdd {
     width: 90%;
-    height: 50%;
+    height: 60%;
+    font-size: 90%;
+  }
+
+  .item {
+    width: 90%;
+    height: 90%;
+  }
+  
+  .itemPad {
+    width:90%;
+    height:1%;
+    margin:auto;
+  }
+
+  .warn {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 529px) and (min-width: 291px){
+  .manageModelBtn {
+    font-size: medium;
+  }
+  
+  .addItemBtn {
+    font-size: medium;
+  }
+
+  .addItemInputImage {
+    margin: 5% 25% 5% 25%;
+    font-size: 70%;
+    width: 50%;
+    height: 10%;
+  }
+  
+  .modelSelect {
+    width: 50%;
+    height: 10%;
+  }
+  .itemAdd {
+    width: 90%;
+    height: 60%;
     font-size: medium;
   }
 
   .item {
     width: 90%;
-    height: 70%;
+    height: 75%;
   }
   
   .itemPad {
     width: 30%;
     height:1%;
     margin:auto;
+  }
+
+  .warn {
+    width: 55%;
   }
 }
 
@@ -288,6 +366,10 @@
     height:1%;
     margin:auto;
   }
+
+  .warn {
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 1023px) and (min-width: 768px) {
@@ -305,5 +387,9 @@
     width: 45%;
     height:1%;
     margin:auto;
+  }
+
+  .warn {
+    width: 80%;
   }
 }

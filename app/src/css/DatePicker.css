@@ -7,7 +7,7 @@
   position: absolute;
   background-color: black;
   opacity: .7;
-  bottom:5%;
+  padding: 0;
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -22,6 +22,7 @@
   background-color: none;
   position: relative;
   border-radius: 1vh;
+  top:2%;
   color:white;
   left: 3%;
   background-color: #282c34;
@@ -92,4 +93,35 @@
 
 textarea:focus, input:focus, select:focus {
   outline: none;
+}
+
+
+@media screen and (max-width: 549px){
+  .datePickerBase {
+    width: 95%;
+  }
+  .datePickerBack {
+    bottom:0%;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 550px){
+  .datePickerBase {
+    width: 50%;
+  }
+  .datePickerBack {
+    bottom:0%;
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .datePickerBase {
+    width: 70%;
+  }
+  .datePickerBack {
+    bottom:0%;
+  }
+  .datePickerMonth {
+    height: auto;
+  }
 }

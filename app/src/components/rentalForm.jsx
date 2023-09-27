@@ -10,7 +10,8 @@ export const rentalFormContext = createContext(null);
 const date = new Date();
 
 export default function RentalForm() {
-  let { alert, setAlert, logOut } = useContext(AppContext);
+  let { alert, setAlert, logOut, adminRent, setAdminRent } =
+    useContext(AppContext);
 
   const [rentalItems, setRentalItems] = useState([]);
   const [lendDate, setLendDate] = useState([
@@ -37,6 +38,14 @@ export default function RentalForm() {
   const setDueDateSelecting = () => setEditingItem(2);
   const setPayDateSelecting = () => setEditingItem(3);
 
+  const get_data = async () => {
+    let data = await get_all_items();
+    if (data) {
+      setRentalItems(data);
+    }
+    setSelectedRentalItem("");
+  };
+
   const submitForm = async () => {
     setSendingRentalForm(true);
     const renter_name = document.getElementById("fname").value;
@@ -49,6 +58,8 @@ export default function RentalForm() {
     const rental_description = document.getElementById("fdescription").value;
     const renter_phone_number = document.getElementById("fphone_number").value;
     const renter_contact_info = document.getElementById("fcontact_info").value;
+    let rent = "";
+    if (adminRent) rent = document.getElementById("frentalRent").value;
 
     if (renter_name === "" || renter_student_id === "") {
       setAlert(1);
@@ -77,7 +88,7 @@ export default function RentalForm() {
       renter_contact_info,
       rental_description,
       rental_pay_date,
-      500,
+      rent === "" ? 500 : parseInt(rent),
       rentalItems.find((item) => item.item_name === rental_item).item_id
     );
 
@@ -85,6 +96,9 @@ export default function RentalForm() {
     if (result) {
       setAlert(27);
       setSendingRentalForm(false);
+      get_data();
+
+      document.getElementById("formRenterItemSelect").value = "";
       return;
     }
     setAlert(28);
@@ -92,13 +106,6 @@ export default function RentalForm() {
   };
 
   useEffect(() => {
-    const get_data = async () => {
-      let data = await get_all_items();
-      if (data) {
-        setRentalItems(data);
-      }
-    };
-
     get_data();
     // eslint-disable-next-line
   }, []);
@@ -114,10 +121,17 @@ export default function RentalForm() {
         setPayDate,
         editingItem,
         setEditingItem,
+        adminRent,
+        setAdminRent,
       }}
     >
       <form className="rentalForm">
         <p className="rentalFormTitle">租借表單申請</p>
+        {adminRent && (
+          <p className="rentalFormTitleAdminVer" style={{ margin: 0 }}>
+            (管理員版)
+          </p>
+        )}
         {/* Renter name */}
         <div className="formSection30">
           <label htmlFor="fname" className="formLabel">
@@ -196,7 +210,7 @@ export default function RentalForm() {
         {/* Pay date */}
         <div className="formSection30">
           <label htmlFor="fselectRentalItem" className="formLabel">
-            預計支付租金日期
+            支付租金日期
           </label>
           <div
             className="formItemDate"
@@ -236,6 +250,21 @@ export default function RentalForm() {
             className="formRentalDescription"
           />
         </div>
+        {/* Admin rent setting */}
+        {adminRent && (
+          <div className="formSection30">
+            <label htmlFor="frentalRent" className="formLabel">
+              租金調整
+            </label>
+            <input
+              type="text"
+              id="frentalRent"
+              className="formRentalRent"
+              placeholder="500"
+            />
+          </div>
+        )}
+
         {alert !== 0 && alert_message(alert)}
         {/* Submit */}
         <div className="formSection100">

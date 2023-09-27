@@ -1,4 +1,4 @@
-const path = "http://127.0.0.1:8000";
+const path = "http://127.0.0.1:9001";
 
 const get_access_token = async (user_name, password) => {
   // Get admin access token for localStorage
@@ -266,6 +266,34 @@ export const get_all_items = async () => {
   }
 };
 
+export const get_items_in_stock = async () => {
+  // Get items that is currently in stock
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/item/in_stock`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
 export const get_item_detail = async (item_id) => {
   // Get item detail
 
@@ -305,8 +333,6 @@ export const update_item = async (item_id, type, value) => {
   try {
     const class_id = await get_item_detail(item_id).class_id;
     body.class_id = class_id;
-
-    console.log(body);
 
     const response = await fetch(`${path}/item/${item_id}`, {
       method: "PATCH",
@@ -532,6 +558,154 @@ export const get_rental_forms_by_serial_number = async (item_id) => {
     }
 
     return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const adjust_model = async (model_id, body) => {
+  // Update specific item model
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/model/${model_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const under_review_rental_forms = async () => {
+  // Get all rental forms that is under review
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/rental_form/under_review_forms`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const renting_rental_forms = async () => {
+  // Get all rental forms that is currently renting
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/rental_form/renting_forms`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const update_rental_form_status = async (
+  rental_id,
+  status,
+  return_date = null
+) => {
+  // Update rental form's status
+
+  const token = window.localStorage.getItem("access_token");
+
+  const body = { status: status };
+
+  try {
+    const response = await fetch(`${path}/rental_form/${rental_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
+export const delete_rental_form = async (rental_id) => {
+  // Update rental form's status
+
+  const token = window.localStorage.getItem("access_token");
+
+  try {
+    const response = await fetch(`${path}/rental_form/${rental_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
   } catch (error) {
     console.error("An error occurred:", error);
     return false;

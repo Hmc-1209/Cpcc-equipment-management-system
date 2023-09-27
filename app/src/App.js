@@ -9,10 +9,12 @@ import AdminSettings from "./components/admin/adminSettings";
 import ItemClassPage from "./components/admin/itemClass";
 import Items from "./components/admin/items";
 import ItemModels from "./components/admin/itemModel";
-import EquipmentInventory from "./components/admin/equipmentInventory/equiptmentInventory";
+import EquipmentInventory from "./components/admin/equipmentInventory/equipmentInventory";
 import EquipmentInventoryModel from "./components/admin/equipmentInventory/equipmentInventoryModelPage";
 import EquipmentInventorySerialNumber from "./components/admin/equipmentInventory/equipmentInventorySerialNumber";
 import EquipmentInventoryRentalForm from "./components/admin/equipmentInventory/equipmentInventoryRentalForm";
+import EquipmentCheck from "./components/admin/equipmentCheck";
+import ReviewRentalForm from "./components/admin/reviewRentalForm";
 export const AppContext = createContext(null);
 
 function App() {
@@ -28,8 +30,10 @@ function App() {
   const [eISNLayerData, setEISNLayerData] = useState(null);
   const [eIRFData, setEIRFData] = useState(null);
   const [focusItemRF, setFocusItemRF] = useState(null);
+  const [adminRent, setAdminRent] = useState(false);
+  const [checkItem, setCheckItem] = useState(false);
+  const [itemTMP, setItemTMP] = useState([]);
 
-  // const selectHomeMode = () => setMode(0);
   const selectRentalFormMode = () => setMode(1);
   const selectAdminMode = async () => {
     if (await validate()) {
@@ -81,7 +85,13 @@ function App() {
         setMode(2);
         return;
 
+      case 21:
+        setCheckItem(false);
+        setMode(2);
+        return;
+
       case 30:
+        setAdminRent(false);
         setMode(2);
         return;
 
@@ -144,6 +154,12 @@ function App() {
         setEIRFData,
         focusItemRF,
         setFocusItemRF,
+        adminRent,
+        setAdminRent,
+        checkItem,
+        setCheckItem,
+        itemTMP,
+        setItemTMP,
       }}
     >
       <div className="App">
@@ -181,6 +197,16 @@ function App() {
         {mode === 11 && <EquipmentInventoryModel />}
         {mode === 12 && <EquipmentInventorySerialNumber />}
         {mode === 13 && <EquipmentInventoryRentalForm />}
+
+        {/* Items check */}
+        {mode === 20 && <EquipmentCheck />}
+        {mode === 21 && <Items />}
+
+        {/* Admin rental form */}
+        {mode === 30 && <RentalForm />}
+
+        {/* Review rental forms */}
+        {mode === 40 && <ReviewRentalForm />}
 
         {/* Item class settings */}
         {mode === 50 && <ItemClassPage />}

@@ -20,7 +20,8 @@ const Items = () => {
   const [newItem, setNewItem] = useState(false);
   const [models, setModels] = useState([]);
 
-  let { alert, setAlert, logOut, setMode } = useContext(AppContext);
+  let { alert, setAlert, logOut, setMode, itemTMP, checkItem } =
+    useContext(AppContext);
 
   const itemClassName = (itemStatus) => {
     switch (itemStatus) {
@@ -28,9 +29,12 @@ const Items = () => {
         return " inStock";
 
       case 1:
-        return " renting";
+        return " inStock orange";
 
       case 2:
+        return " renting";
+
+      case 3:
         return " lost";
 
       default:
@@ -39,13 +43,13 @@ const Items = () => {
   };
 
   const checkActive = (itemStatus, type) => {
-    if (itemStatus === 0 && type === "inStock") {
+    if ((itemStatus === 0 || itemStatus === 1) && type === "inStock") {
       return " active";
     }
-    if (itemStatus === 1 && type === "renting") {
+    if (itemStatus === 2 && type === "renting") {
       return " active";
     }
-    if (itemStatus === 2 && type === "lost") {
+    if (itemStatus === 3 && type === "lost") {
       return " active";
     }
     return "";
@@ -75,10 +79,19 @@ const Items = () => {
     if (item_status === value) return;
 
     setItemUpdating(item_id);
-    const result = await update_item(item_id, "status", value);
+    let result = await update_item(item_id, "status", value);
 
     if (result) {
-      setItems(await get_all_items());
+      result = await get_all_items();
+      console.log(itemTMP);
+      if (checkItem && Array.isArray(itemTMP)) {
+        const itemIdsToRemove = itemTMP.map((item) => item);
+
+        result = result.filter((item) =>
+          itemIdsToRemove.includes(item.item_id)
+        );
+      }
+      setItems(result);
       setItemUpdating(0);
       return;
     }
@@ -97,14 +110,12 @@ const Items = () => {
 
     if (itemName === "" || itemSerialNumber === "") {
       setItemUpdating(0);
-      setNewItem(false);
       setAlert(22);
       return;
     }
 
     if (!itemModel || itemModel === "") {
       setItemUpdating(0);
-      setNewItem(false);
       setAlert(24);
       return;
     }
@@ -158,7 +169,6 @@ const Items = () => {
       setItemUpdating(0);
       return;
     }
-    setNewItem(false);
     setItemUpdating(0);
     setAlert(23);
   };
@@ -177,8 +187,17 @@ const Items = () => {
     if (result === 401) logOut();
 
     if (result) {
-      const new_item = await get_all_items();
-      if (new_item) setItems(new_item);
+      let new_item = await get_all_items();
+      if (new_item) {
+        if (checkItem) {
+          const itemIdsToRemove = itemTMP.map((item) => item);
+          console.log(itemIdsToRemove);
+          new_item = new_item.filter((item) =>
+            itemIdsToRemove.includes(item.item_id)
+          );
+        }
+        setItems(new_item);
+      }
       setItemUpdating(0);
       setItemEditing(0);
       return;
@@ -191,11 +210,18 @@ const Items = () => {
   useEffect(() => {
     const get_items = async () => {
       setItemsLoading(true);
-      const result = await get_all_items();
+      let result = await get_all_items();
       const models = await get_models();
       if (models) setModels(models);
       setItemsLoading(false);
       if (result) {
+        if (checkItem) {
+          const itemIdsToRemove = itemTMP.map((item) => item);
+          console.log(itemIdsToRemove);
+          result = result.filter((item) =>
+            itemIdsToRemove.includes(item.item_id)
+          );
+        }
         setItems(result);
         return;
       }
@@ -222,13 +248,26 @@ const Items = () => {
           <div style={{ width: "100%", minHeight: "40px" }}>
             {alert !== 0 && alert_message(alert)}
           </div>
+          {checkItem && (
+            <div className="warn">
+              這些物品沒有被勾選到！請手動更改他們的狀態！
+            </div>
+          )}
           <div className="itemsPage">
-            <button className="addItemBtn" onClick={() => setNewItem(!newItem)}>
-              + 新增物品
-            </button>
-            <button className="manageModelBtn" onClick={() => setMode(61)}>
-              調整型號
-            </button>
+            {!checkItem && (
+              <>
+                <button
+                  className="addItemBtn"
+                  onClick={() => setNewItem(!newItem)}
+                >
+                  + 新增物品
+                </button>
+                <button className="manageModelBtn" onClick={() => setMode(61)}>
+                  調整型號
+                </button>
+              </>
+            )}
+
             {newItem !== false && (
               <div className="itemAdd">
                 <label htmlFor="item_name" className="addItemLabel">
@@ -268,7 +307,11 @@ const Items = () => {
                   accept="image/*"
                   className="addItemInputImage"
                 />
-                <select name="modelSelect" id="modelSelect">
+                <select
+                  name="modelSelect"
+                  id="modelSelect"
+                  className="modelSelect"
+                >
                   <option value="">選擇型號</option>
                   {models.map((model) => (
                     <option key={model.model_id} value={model.model_id}>
@@ -345,7 +388,8 @@ const Items = () => {
                   <i
                     className={
                       "fa fa-archive inStockBtn" +
-                      checkActive(item.status, "inStock")
+                      checkActive(item.status, "inStock") +
+                      (item.status === 1 ? " orange" : "")
                     }
                     aria-hidden="true"
                     onClick={() =>
@@ -359,7 +403,7 @@ const Items = () => {
                     }
                     aria-hidden="true"
                     onClick={() =>
-                      updateItemStatus(item.item_id, item.status, 1)
+                      updateItemStatus(item.item_id, item.status, 2)
                     }
                   ></i>
                   <i
@@ -369,7 +413,7 @@ const Items = () => {
                     }
                     aria-hidden="true"
                     onClick={() =>
-                      updateItemStatus(item.item_id, item.status, 2)
+                      updateItemStatus(item.item_id, item.status, 3)
                     }
                   ></i>
                   <i

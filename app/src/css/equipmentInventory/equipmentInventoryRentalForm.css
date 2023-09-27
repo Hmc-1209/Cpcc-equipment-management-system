@@ -61,7 +61,8 @@
   .rental_note,
   .rental_contact_info,
   .rental_rent,
-  .rental_return_date {
+  .rental_return_date,
+  .rental_item {
     text-align: left;
     padding-left: 2%;
     margin:0;
@@ -89,7 +90,8 @@
     .rental_note,
     .rental_contact_info,
     .rental_rent,
-    .rental_return_date {
+    .rental_return_date,
+    .rental_item {
       font-size: xx-small;
       font-size: medium;
       text-align: left;
@@ -118,7 +120,8 @@
     .rental_note,
     .rental_contact_info,
     .rental_rent,
-    .rental_return_date {
+    .rental_return_date,
+    .rental_item {
       font-size: small;
       text-align: left;
       padding-left: 2%;
@@ -146,7 +149,8 @@
     .rental_note,
     .rental_contact_info,
     .rental_rent,
-    .rental_return_date {
+    .rental_return_date,
+    .rental_item {
       font-size: medium;
       text-align: left;
       padding-left: 2%;

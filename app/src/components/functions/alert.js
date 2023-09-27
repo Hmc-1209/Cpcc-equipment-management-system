@@ -212,6 +212,68 @@ const alert_message = (alert) => {
         </div>
       );
 
+    case 31:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          請選擇型號
+        </div>
+      );
+
+    case 32:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          請更新其中一項內容
+        </div>
+      );
+
+    case 33:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          更新失敗
+        </div>
+      );
+
+    case 34:
+      return (
+        <div className="alertMessageShort green large center medium no-space">
+          更新完成
+        </div>
+      );
+
+    case 35:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          獲取資料失敗
+        </div>
+      );
+
+    case 36:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          獲取資料失敗
+        </div>
+      );
+
+    case 37:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          更新失敗
+        </div>
+      );
+
+    case 38:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          未指定歸還日期！
+        </div>
+      );
+
+    case 39:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          刪除失敗
+        </div>
+      );
     default:
       return <div></div>;
   }

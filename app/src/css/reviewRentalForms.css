@@ -1,0 +1,133 @@
+::-webkit-scrollbar {
+  width: 0;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+.reviewRentalFormsPage {
+  width: 80%;
+  height: 70vh;
+  overflow-y: auto;
+  border-radius: 5px;
+  margin: auto;
+  text-align: center;
+}
+
+.reviewModeBtn {
+  width: 20%;
+  margin:2%;
+  font-size: 120%;
+  background-color: #282c34;
+  border: 2px white solid;
+  color:white;
+  border-radius: 5px;
+}
+
+.selectedMode {
+  background-color: white;
+  color: #282c34;
+}
+
+.form {
+  margin: auto;
+  width: 80%;
+  border: 2px white solid;
+  color:white;
+  font-size: 150%;
+  border-radius: 5px;
+  margin-bottom: 2%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+
+.back {
+  position: absolute;
+  width:100%;
+  height:100%;
+}
+.functionBtns {
+  width: 100%;
+  display: flex;
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.approveBtn {
+  text-align: center;
+  color: white;
+  margin:0;
+  background-color: green;
+  width: auto;
+  padding-left:5px;
+  padding-right:5px;
+  border-radius: 5px;
+  margin:1%;
+}
+.approveBtn:hover {
+  background-color:rgb(8, 86, 8);
+}
+
+.deleteFormBtn {
+  text-align: center;
+  color: white;
+  margin:0;
+  background-color: red;
+  width: auto;
+  padding-left:5px;
+  padding-right:5px;
+  border-radius: 5px;
+  margin:1%;
+}
+.deleteFormBtn:hover {
+  background-color: rgb(136, 27, 27);
+}
+
+@media screen and (max-width: 290px) {
+}
+
+@media screen and (max-width: 529px) and (min-width: 291px){
+  .reviewRentalFormsPage {
+    width: 90%;
+  }
+
+  .rental_st_name,
+  .rental_st_id,
+  .rental_st_phone,
+  .rental_lend_date,
+  .rental_pay_date,
+  .rental_due_date,
+  .rental_note,
+  .rental_contact_info,
+  .rental_rent,
+  .rental_return_date {
+    width: 100%;
+  }
+
+  .approveBtn,
+  .deleteBtn {
+    font-size: 70%;
+  }
+}
+
+@media screen and (max-width: 767px) and (min-width: 530px){
+  .reviewRentalFormsPage {
+    width: 90%;
+  }
+  .approveBtn,
+  .deleteBtn {
+    font-size: 70%;
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px){
+  .reviewRentalFormsPage {
+    width: 90%;
+  }
+  .approveBtn,
+  .deleteBtn {
+    font-size: 70%;
+  }
+}
