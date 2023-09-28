@@ -4,7 +4,7 @@ DROP USER IF EXISTS 'CpccEMSRoot'@'localhost';
 DROP USER IF EXISTS 'CpccEMSAdmin'@'%';
 
 -- Setting configuration
-SET @db_password = LOAD_FILE('/tmp/config.txt');
+SOURCE /tmp/CpccEMSconfig.sql;
 
 CREATE DATABASE CpccEMS;
 USE CpccEMS;
