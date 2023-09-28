@@ -1,6 +1,5 @@
-import "./css/App.css";
-import { validate } from "./requests";
 import { useState, createContext, useEffect } from "react";
+import { validate } from "./requests";
 
 import RentalForm from "./components/rentalForm";
 import AdminPage from "./components/adminPage";
@@ -15,6 +14,9 @@ import EquipmentInventorySerialNumber from "./components/admin/equipmentInventor
 import EquipmentInventoryRentalForm from "./components/admin/equipmentInventory/equipmentInventoryRentalForm";
 import EquipmentCheck from "./components/admin/equipmentCheck";
 import ReviewRentalForm from "./components/admin/reviewRentalForm";
+
+import "./css/App.css";
+
 export const AppContext = createContext(null);
 
 function App() {

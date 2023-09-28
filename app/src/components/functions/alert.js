@@ -201,7 +201,7 @@ const alert_message = (alert) => {
     case 29:
       return (
         <div className="alertMessageShort red absolute left top">
-          名稱或學號字數過多
+          學號格式錯誤
         </div>
       );
 

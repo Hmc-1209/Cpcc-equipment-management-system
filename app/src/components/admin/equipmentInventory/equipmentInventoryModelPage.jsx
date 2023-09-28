@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../../App";
 import { validate, get_item_class_models } from "../../../requests";
-import "../../../css/equipmentInventory/equipmentInventoryModelPage.css";
+
 import Loading from "../../functions/loading";
+
+import "../../../css/equipmentInventory/equipmentInventoryModelPage.css";
 
 const EquipmentInventoryModel = () => {
   const [models, setModels] = useState([]);

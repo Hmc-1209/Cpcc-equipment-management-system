@@ -1,23 +1,24 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../App";
 import Loading from "../functions/loading";
-import "../../css/equipmentCheck.css";
-
 import {
   get_item_classes,
   get_items_in_stock,
   get_models,
   validate,
 } from "../../requests";
+
 import alert_message from "../functions/alert";
+
+import "../../css/equipmentCheck.css";
 
 const EquipmentCheck = () => {
   const [items, setItems] = useState([]);
   const [models, setModels] = useState([]);
   const [itemClasses, setItemClasses] = useState([]);
   const [visible, setVisible] = useState([]);
-  let checkedItem = [];
   const [all_check, set_all_check] = useState(false);
+  let checkedItem = [];
 
   let {
     loading,

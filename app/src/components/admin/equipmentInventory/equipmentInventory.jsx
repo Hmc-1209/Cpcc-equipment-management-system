@@ -1,11 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import { get_item_classes, validate } from "../../../requests";
-import Loading from "../../functions/loading";
 import { AppContext } from "../../../App";
+
+import Loading from "../../functions/loading";
 import alert_message from "../../functions/alert";
+
 import "../../../css/equipmentInventory/equipmentInventory.css";
 
 const EquipmentInventory = () => {
+  const [itemClasses, setItemClasses] = useState([]);
+
   let {
     logOut,
     loading,
@@ -16,8 +20,6 @@ const EquipmentInventory = () => {
     setMode,
     setEIMLayerData,
   } = useContext(AppContext);
-
-  const [itemClasses, setItemClasses] = useState([]);
 
   useEffect(() => {
     setLoading(true);

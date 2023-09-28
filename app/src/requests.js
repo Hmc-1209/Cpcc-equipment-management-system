@@ -658,7 +658,11 @@ export const update_rental_form_status = async (
 
   const token = window.localStorage.getItem("access_token");
 
-  const body = { status: status };
+  let body = { status: status };
+
+  if (status === 2) {
+    body["return_date"] = return_date;
+  }
 
   try {
     const response = await fetch(`${path}/rental_form/${rental_id}`, {

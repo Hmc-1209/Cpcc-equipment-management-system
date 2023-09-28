@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import "../../css/logIn.css";
 import { AppContext } from "../../App";
-import alert_message from "../functions/alert";
+
 import get_access_token from "../../requests";
+import alert_message from "../functions/alert";
+
+import "../../css/logIn.css";
 
 const LogIn = () => {
   // LogIn component will be rendered when clicking Admin section on home page
-
-  let { setMode, alert, setAlert } = useContext(AppContext);
 
   const loggingIn = async () => {
     // Log In and set the localStorage datas
@@ -33,6 +33,8 @@ const LogIn = () => {
     window.localStorage.setItem("access_token", null);
     window.localStorage.setItem("isLogIn", false);
   };
+
+  let { setMode, alert, setAlert } = useContext(AppContext);
 
   return (
     <div className="LogInPage">

@@ -1,18 +1,18 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
-import "../css/rentalForm.css";
-import DatePicker from "./common/DatePicker";
 import { AppContext } from "../App";
-import alert_message from "./functions/alert";
 import { get_all_items, send_rental_form } from "../requests";
+
 import Loading from "./functions/loading";
+import alert_message from "./functions/alert";
+import DatePicker from "./common/DatePicker";
+
+import "../css/rentalForm.css";
 
 export const rentalFormContext = createContext(null);
+
 const date = new Date();
 
 export default function RentalForm() {
-  let { alert, setAlert, logOut, adminRent, setAdminRent } =
-    useContext(AppContext);
-
   const [rentalItems, setRentalItems] = useState([]);
   const [lendDate, setLendDate] = useState([
     date.getFullYear(),
@@ -32,7 +32,12 @@ export default function RentalForm() {
   const [editingItem, setEditingItem] = useState(null);
   const [selectedRentalItem, setSelectedRentalItem] = useState("");
   const [sendingRentalForm, setSendingRentalForm] = useState(false);
+  const [show, setShow] = useState(false);
+  const student_id_format = /^[a-zA-Z0-9]{9}$/;
   const phone_format = /^09\d{8}$/;
+
+  let { alert, setAlert, logOut, adminRent, setAdminRent } =
+    useContext(AppContext);
 
   const setLendDateSelecting = () => setEditingItem(1);
   const setDueDateSelecting = () => setEditingItem(2);
@@ -73,7 +78,7 @@ export default function RentalForm() {
       setAlert(26);
       setSendingRentalForm(false);
       return;
-    } else if (renter_student_id.length > 9) {
+    } else if (!student_id_format.test(renter_student_id)) {
       setAlert(29);
       setSendingRentalForm(false);
       return;
@@ -125,6 +130,7 @@ export default function RentalForm() {
         setAdminRent,
       }}
     >
+      {/* Rental form section */}
       <form className="rentalForm">
         <p className="rentalFormTitle">租借表單申請</p>
         {adminRent && (
@@ -278,6 +284,31 @@ export default function RentalForm() {
           </div>
         )}
       </form>
+
+      {/* Rental available items section */}
+      <div className="itemListSection">
+        <i
+          className={
+            "fa fa-chevron-circle-down switchItemShow" + (show ? "" : " hide")
+          }
+          aria-hidden="true"
+          onClick={() => setShow(show ? false : true)}
+        ></i>
+        <div style={{ width: "100%" }}>顯示可用物品</div>
+        {show &&
+          rentalItems.map(
+            (item) =>
+              item.status === 0 && (
+                <div className="rentalItemSection">
+                  <div className="rentalItemName">{item.item_name}</div>
+                  <img
+                    src={"data:image/jpeg;base64," + item.image}
+                    alt="物品圖片"
+                  />
+                </div>
+              )
+          )}
+      </div>
     </rentalFormContext.Provider>
   );
 }

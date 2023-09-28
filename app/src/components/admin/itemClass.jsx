@@ -1,7 +1,4 @@
 import React, { useEffect, useContext, useState } from "react";
-import "../../css/itemClass.css";
-import "../../css/alert.css";
-
 import {
   add_new_item_class,
   delete_item_class,
@@ -10,16 +7,20 @@ import {
   validate,
 } from "../../requests";
 import { AppContext } from "../../App";
+
 import Loading from "../functions/loading";
 import alert_message from "../functions/alert";
 
-const ItemClassPage = () => {
-  let { logOut, loading, setLoading, alert, setAlert } = useContext(AppContext);
+import "../../css/itemClass.css";
+import "../../css/alert.css";
 
+const ItemClassPage = () => {
   const [itemClasses, setItemClasses] = useState([]);
   const [editingItemClass, setEditingItemClass] = useState(0);
   const [itemClassLoading, setItemClassLoading] = useState(0);
   const [newItemClass, setNewItemClass] = useState(0);
+
+  let { logOut, loading, setLoading, alert, setAlert } = useContext(AppContext);
 
   const editingReset = (class_id, value = null) => {
     if (!class_id) return;

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
-import "../css/adminPage.css";
 import { AppContext } from "../App";
+
+import "../css/adminPage.css";
 
 export default function AdminPage() {
   let { setMode, setAdminRent } = useContext(AppContext);

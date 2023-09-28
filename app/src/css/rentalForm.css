@@ -108,6 +108,37 @@ form {
   opacity: .5;
 }
 
+.itemListSection {
+  color:white;
+  width: 80%;
+  margin:auto;
+  font-size:150%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1%;
+}
+
+.switchItemShow {
+  font-size: 250%;
+  width:100%;
+  height: fit-content;
+  padding:1%;
+  color: white;
+  border-radius: 100vh;
+}
+
+.hide {
+  transform: rotate(-180deg);
+}
+
+.rentalItemSection {
+  width: 20%;
+  margin: auto;
+  margin-top: 2%;
+  border: 2px white solid;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 767px){
   .rentalFormTitle {
     font-size: 30px;
@@ -131,6 +162,13 @@ form {
     font-weight: bold;
     color: white;
     background-color: rgb(66, 211, 26);
+  }
+  .switchItemShow {
+    font-size: 200%;
+  }
+  .rentalItemSection {
+    width: 80%;
+    margin-bottom:3%;
   }
 }
 
@@ -156,5 +194,12 @@ form {
     font-weight: bold;
     color: white;
     background-color: rgb(66, 211, 26);
+  }
+  .switchItemShow {
+    font-size: 200%;
+  }
+  .rentalItemSection {
+    width: 40%;
+    margin-bottom:3%;
   }
 }

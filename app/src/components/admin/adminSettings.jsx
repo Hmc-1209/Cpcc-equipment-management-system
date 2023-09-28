@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import "../../css/adminSettings.css";
-
 import { AppContext } from "../../App";
 import alert_message from "../functions/alert";
 import { update_admin } from "../../requests";
+
+import "../../css/adminSettings.css";
 
 const AdminSettings = () => {
   let { alert, setAlert, logOut } = useContext(AppContext);

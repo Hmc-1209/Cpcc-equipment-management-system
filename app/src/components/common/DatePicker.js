@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { rentalFormContext } from "../rentalForm";
-
 import { days_in_Month } from "../functions/date";
-import "../../css/DatePicker.css";
 import { AppContext } from "../../App";
+
+import "../../css/DatePicker.css";
 
 const daysInWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 const DatePicker = () => {
+  const [year, setYear] = useState(0);
+  const [month, setMonth] = useState(0);
+
   let {
     dueDate,
     setDueDate,
@@ -20,9 +23,7 @@ const DatePicker = () => {
     setEditingItem,
   } = useContext(rentalFormContext);
   let { setAlert, adminRent } = useContext(AppContext);
-  const [year, setYear] = useState(0);
-  const [month, setMonth] = useState(0);
-  console.log(adminRent);
+
   useEffect(() => {
     const dateType =
       editingItem === 1 ? lendDate : editingItem === 2 ? dueDate : payDate;

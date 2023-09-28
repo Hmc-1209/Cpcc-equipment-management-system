@@ -1,14 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { validate, get_rental_forms_by_serial_number } from "../../../requests";
 import { AppContext } from "../../../App";
+
 import Loading from "../../functions/loading";
+
 import "../../../css/equipmentInventory/equipmentInventoryRentalForm.css";
 
 const EquipmentInventoryRentalForm = () => {
   const [rentalForms, setRentalForms] = useState([]);
 
   let {} = useContext(AppContext);
-
   let {
     loading,
     setLoading,

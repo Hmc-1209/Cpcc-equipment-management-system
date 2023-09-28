@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { adjust_model, get_item_classes, get_models } from "../../requests";
 import { AppContext } from "../../App";
+
 import Loading from "../functions/loading";
-import "../../css/itemModel.css";
 import alert_message from "../functions/alert";
+
+import "../../css/itemModel.css";
 
 const ItemModels = () => {
   const [models, setModels] = useState([]);

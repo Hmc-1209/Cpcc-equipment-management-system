@@ -7,11 +7,14 @@ import {
   delete_rental_form,
   get_all_items,
 } from "../../requests";
+
 import Loading from "../functions/loading";
-import "../../css/reviewRentalForms.css";
-import "../../css/equipmentInventory/equipmentInventoryRentalForm.css";
 import alert_message from "../functions/alert";
 import ReturnDatePicker from "../common/ReturnDatePicker";
+
+import "../../css/reviewRentalForms.css";
+import "../../css/equipmentInventory/equipmentInventoryRentalForm.css";
+
 export const ReviewRentalFormContext = createContext();
 
 const ReviewRentalForm = () => {

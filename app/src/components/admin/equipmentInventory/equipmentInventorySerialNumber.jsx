@@ -1,8 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import "../../../css/equipmentInventory/equipmentInventorySerialNumber.css";
 import { AppContext } from "../../../App";
 import { get_items_in_model, validate } from "../../../requests";
+
 import Loading from "../../functions/loading";
+
+import "../../../css/equipmentInventory/equipmentInventorySerialNumber.css";
 
 const EquipmentInventorySerialNumber = () => {
   const [items, setItems] = useState([]);

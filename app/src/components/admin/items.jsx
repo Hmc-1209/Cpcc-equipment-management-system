@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../../css/items.css";
 import {
   add_item,
   delete_item,
@@ -8,8 +7,11 @@ import {
   update_item,
 } from "../../requests";
 import { AppContext } from "../../App";
+
 import Loading from "../functions/loading";
 import alert_message from "../functions/alert";
+
+import "../../css/items.css";
 
 const Items = () => {
   const [items, setItems] = useState([]);

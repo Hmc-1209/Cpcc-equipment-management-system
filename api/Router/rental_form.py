@@ -27,7 +27,7 @@ async def closed_rental_form_by_item_id(item_id: int, _=Depends(get_current_user
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
-async def create_new_rental_form(new_form: CreateRentalForm, _=Depends(get_current_user)) -> None:
+async def create_new_rental_form(new_form: CreateRentalForm) -> None:
     if not await get_item_by_id(new_form.item_id):
         raise no_such_item
 
