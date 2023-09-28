@@ -9,16 +9,8 @@ import "../../../css/equipmentInventory/equipmentInventoryRentalForm.css";
 const EquipmentInventoryRentalForm = () => {
   const [rentalForms, setRentalForms] = useState([]);
 
-  let {} = useContext(AppContext);
-  let {
-    loading,
-    setLoading,
-    focusItemRF,
-    eIRFData,
-    setEIRFData,
-    setMode,
-    logOut,
-  } = useContext(AppContext);
+  let { loading, setLoading, focusItemRF, eIRFData, logOut } =
+    useContext(AppContext);
 
   useEffect(() => {
     setLoading(true);

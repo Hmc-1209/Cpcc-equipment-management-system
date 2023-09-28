@@ -37,13 +37,21 @@
   text-align: center;
 }
 
-.itemModelAdjustForm {
+.itemModelsAddForm{
   width: 100%;
-  height:70%;
+  height:50%;
   border:2px white solid;
   border-radius: 5px;
 }
 
+.itemModelAdjustForm {
+  width: 100%;
+  height:50%;
+  border:2px white solid;
+  border-radius: 5px;
+}
+
+.itemModelAdd,
 .itemModelSettings {
   position: relative;
   margin: auto;
@@ -51,6 +59,9 @@
   text-align: left;
 }
 
+
+.itemModelAddName,
+.itemModelAddClass,
 .select_itemModel,
 .itemModel_belongs_itemClass_select {
   width: 100%;
@@ -98,7 +109,9 @@
   .itemModelsPage {
     width: 80%;
   }
-
+  
+  .itemModelAddName,
+  .itemModelAddClass,
   .select_itemModel,
   .itemModel_belongs_itemClass_select,
   .modelRename {
@@ -107,6 +120,7 @@
     width: 100%;
     flex-wrap: wrap;
   }
+
   .label {
     width: 100%;
   }
@@ -155,11 +169,18 @@
 }
 
 @media screen and (max-width: 1023px) and (min-width: 768px) {
+  .itemModelsPage {
+    width: 80%;
+  }
+  .itemModelAddName,
+  .itemModelAddClass,
   .select_itemModel,
   .itemModel_belongs_itemClass_select,
-  .itemModelSettings {
+  .modelRename {
+    justify-content: center;
+    align-items: center;
     width: 100%;
-    margin: 0;
+    flex-wrap: wrap;
   }
   .label {
     width: 50%;

@@ -564,6 +564,39 @@ export const get_rental_forms_by_serial_number = async (item_id) => {
   }
 };
 
+export const add_model = async (model_name, class_id) => {
+  // Add new model
+
+  const token = window.localStorage.getItem("access_token");
+  const body = {
+    model_name: model_name,
+    class_id: class_id,
+  };
+
+  try {
+    const response = await fetch(`${path}/model/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (response.status === 401) return 401;
+
+    if (!response.ok) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    console.error("An error occurred:", error);
+    return false;
+  }
+};
+
 export const adjust_model = async (model_id, body) => {
   // Update specific item model
 

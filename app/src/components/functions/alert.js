@@ -274,6 +274,28 @@ const alert_message = (alert) => {
           刪除失敗
         </div>
       );
+
+    case 40:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          無提供類型 / 名稱
+        </div>
+      );
+
+    case 41:
+      return (
+        <div className="alertMessageShort red large center medium no-space">
+          新增失敗
+        </div>
+      );
+
+    case 42:
+      return (
+        <div className="alertMessageShort green large center medium no-space">
+          完成
+        </div>
+      );
+
     default:
       return <div></div>;
   }
