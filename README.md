@@ -8,6 +8,9 @@
 ## The composition of the project
 This project in build for Raspberry Pi OS server, but it should fit most of the other OSs as it uses Docker to deploy services. The API is in the /api folder and APP in /app folder that you can just pull the project and customize them from there.  
 
+## What did it serve
+The application helped admin user easily handled equipments in a club, simply by adding them to the item list, people can send a rent form for the item and admin can decide to allow it or delete it. The default rent is 500, which could be customized in the source code, and there are 7 sections to deal with equipments in admin page. Normal user and rent one item in each class, and every item also contains a model that specify the exact model name of the item in that class, and serial number for recognization. For example, a camera's class would be **Camera**, it's model might be **CaXXn**, and it's serial number could be something like **C001**.
+
 ## How to deploy the service
 To let this application fully working, first you'll have to do the things below : 
 ##### 1. Clone the project

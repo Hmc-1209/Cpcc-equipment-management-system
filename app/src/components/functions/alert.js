@@ -296,6 +296,13 @@ const alert_message = (alert) => {
         </div>
       );
 
+    case 43:
+      return (
+        <div className="alertMessageShort red x-large center medium no-space">
+          編號重複
+        </div>
+      );
+
     default:
       return <div></div>;
   }

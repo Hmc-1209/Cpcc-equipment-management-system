@@ -116,6 +116,12 @@ const Items = () => {
       return;
     }
 
+    if (items.find((item) => item.serial_number === itemSerialNumber)) {
+      setItemUpdating(0);
+      setAlert(43);
+      return;
+    }
+
     if (!itemModel || itemModel === "") {
       setItemUpdating(0);
       setAlert(24);
