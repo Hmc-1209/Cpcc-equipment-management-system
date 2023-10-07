@@ -9,7 +9,7 @@ router = APIRouter(prefix="/model", tags=["Model"])
 
 
 @router.get("/")
-async def model_list(_=Depends(get_current_user)) -> list[DetailModel]:
+async def model_list() -> list[DetailModel]:
     return await get_model_list()
 
 

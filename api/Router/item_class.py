@@ -8,7 +8,7 @@ router = APIRouter(prefix="/item_class", tags=["ItemClass"])
 
 
 @router.get("/")
-async def item_class_all(_=Depends(get_current_user)) -> list[CompleteItemClass]:
+async def item_class_all() -> list[CompleteItemClass]:
     return await get_all_item_class()
 
 
