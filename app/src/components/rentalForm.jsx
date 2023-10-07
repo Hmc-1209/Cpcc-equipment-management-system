@@ -1,6 +1,11 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { AppContext } from "../App";
-import { get_all_items, send_rental_form } from "../requests";
+import {
+  get_all_items,
+  get_item_classes,
+  get_models,
+  send_rental_form,
+} from "../requests";
 
 import Loading from "./functions/loading";
 import alert_message from "./functions/alert";
@@ -14,6 +19,7 @@ const date = new Date();
 
 export default function RentalForm() {
   const [rentalItems, setRentalItems] = useState([]);
+  const [wantedItemBelongsClasses, setWantedItemBelongsClasses] = useState([]);
   const [lendDate, setLendDate] = useState([
     date.getFullYear(),
     date.getMonth() + 1,
@@ -30,9 +36,11 @@ export default function RentalForm() {
     date.getDate(),
   ]);
   const [editingItem, setEditingItem] = useState(null);
-  const [selectedRentalItem, setSelectedRentalItem] = useState("");
   const [sendingRentalForm, setSendingRentalForm] = useState(false);
   const [show, setShow] = useState(false);
+  const [contact, setContact] = useState(false);
+  const [rentalSelectedItems, setRentalSelectedItems] = useState([]);
+  const [rentalItemModels, setRentalItemModels] = useState([]);
   const student_id_format = /^[a-zA-Z0-9]{9}$/;
   const phone_format = /^09\d{8}$/;
 
@@ -45,17 +53,29 @@ export default function RentalForm() {
 
   const get_data = async () => {
     let data = await get_all_items();
-    if (data) {
+    let classes = await get_item_classes();
+    let models = await get_models();
+    if (data && classes && models) {
+      data.map(
+        (item) =>
+          (item.class_id = models.find(
+            (model) => model.model_id === item.model_id
+          ).class_id)
+      );
+      console.log(data);
       setRentalItems(data);
+      setRentalItemModels(models);
     }
-    setSelectedRentalItem("");
   };
 
   const submitForm = async () => {
     setSendingRentalForm(true);
     const renter_name = document.getElementById("fname").value;
     const renter_student_id = document.getElementById("fstudent_id").value;
-    const rental_item = document.getElementById("formRenterItemSelect").value;
+    const rental_items = rentalSelectedItems.map(
+      (itemName) =>
+        rentalItems.find((item) => item.item_name === itemName).item_id
+    );
     const rental_lend_date =
       document.getElementById("rentalLendDate").innerText;
     const rental_due_date = document.getElementById("rentalDueDate").innerText;
@@ -70,7 +90,7 @@ export default function RentalForm() {
       setAlert(1);
       setSendingRentalForm(false);
       return;
-    } else if (rental_item === "") {
+    } else if (rental_items.lgneth === 0) {
       setAlert(2);
       setSendingRentalForm(false);
       return;
@@ -84,30 +104,64 @@ export default function RentalForm() {
       return;
     }
 
-    const result = await send_rental_form(
-      renter_name,
-      renter_student_id,
-      rental_lend_date,
-      rental_due_date,
-      renter_phone_number,
-      renter_contact_info,
-      rental_description,
-      rental_pay_date,
-      rent === "" ? 500 : parseInt(rent),
-      rentalItems.find((item) => item.item_name === rental_item).item_id
-    );
+    let result = null;
 
-    if (result === 401) logOut();
+    for (let i = 0; i < rental_items.length; i++) {
+      result = await send_rental_form(
+        renter_name,
+        renter_student_id,
+        rental_lend_date,
+        rental_due_date,
+        renter_phone_number,
+        renter_contact_info,
+        rental_description,
+        rental_pay_date,
+        rent === "" ? (i === 0 ? 500 : 0) : parseInt(rent),
+        rental_items[i]
+      );
+      if (result === 401) logOut();
+    }
+
     if (result) {
       setAlert(27);
       setSendingRentalForm(false);
       get_data();
-
-      document.getElementById("formRenterItemSelect").value = "";
       return;
     }
     setAlert(28);
     setSendingRentalForm(false);
+  };
+
+  const addRentalSelectedItem = (item) => {
+    const new_items = [...rentalSelectedItems, item];
+    setRentalSelectedItems(new_items);
+
+    const belongs_model = rentalItems.find(
+      (spec_item) => spec_item.item_name === item
+    ).model_id;
+
+    const belongs_class = rentalItemModels.find(
+      (model) => model.model_id === belongs_model
+    ).class_id;
+    !adminRent &&
+      setWantedItemBelongsClasses([...wantedItemBelongsClasses, belongs_class]);
+  };
+
+  const deleteRentalSelectedItem = (item) => {
+    const item_class_id = rentalItemModels.find(
+      (model) =>
+        model.model_id ===
+        rentalItems.find((spec_item) => spec_item.item_name === item).model_id
+    ).class_id;
+    setWantedItemBelongsClasses(
+      wantedItemBelongsClasses.filter(
+        (itemClass) => itemClass !== item_class_id
+      )
+    );
+
+    setRentalSelectedItems(
+      rentalSelectedItems.filter((spec_item) => spec_item != item)
+    );
   };
 
   useEffect(() => {
@@ -152,25 +206,29 @@ export default function RentalForm() {
           </label>
           <input type="text" id="fstudent_id" className="formRenterInput" />
         </div>
-        {/* Select rental item */}
+        {/* Select rental item(s) */}
         <div className="formSection30">
           <label htmlFor="fselectRentalItem" className="formLabel">
             選擇租借項目
           </label>
           <select
-            value={selectedRentalItem}
-            onChange={(e) => setSelectedRentalItem(e.target.value)}
+            onChange={(e) => addRentalSelectedItem(e.target.value)}
             className="formRenterItemSelect"
             id="formRenterItemSelect"
           >
-            <option value="" disabled>
-              選擇以下之一
+            <option value="" disabled selected>
+              點擊以新增
             </option>
             {rentalItems.map((item) => (
               <option
                 key={item.item_name}
                 value={item.item_name}
-                disabled={item.status === 0 ? false : true}
+                disabled={
+                  item.status === 0 &&
+                  !wantedItemBelongsClasses.includes(item.class_id)
+                    ? false
+                    : true
+                }
               >
                 {item.item_name}
               </option>
@@ -270,8 +328,25 @@ export default function RentalForm() {
             />
           </div>
         )}
+        {/* Rental items */}
+        <div className="rentalFormSelectedItems">
+          欲租借項目：
+          {rentalSelectedItems.map((item) => (
+            <div key={item} className="wantedItem">
+              {item}
+              <button
+                type="button"
+                className="deleteWantedItem"
+                onClick={() => deleteRentalSelectedItem(item)}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
 
         {alert !== 0 && alert_message(alert)}
+
         {/* Submit */}
         <div className="formSection100">
           <button className="submitButton" type="button" onClick={submitForm}>
@@ -309,6 +384,28 @@ export default function RentalForm() {
               )
           )}
       </div>
+
+      {/* Cppc contact info section */}
+      <i
+        className="fa fa-info-circle cppcContactInfoBtn"
+        aria-hidden="true"
+        onClick={() => setContact(true)}
+      ></i>
+      {contact && (
+        <div className="cppcContactInfo">
+          <div className="cppcContactInfoSection">
+            <p className="cppcName">12nd 集美好攝團</p>
+            <div className="cppcInfo">
+              <p>Instagram: ntut_photoclub</p>
+              <p>社辦地點: 北科大 宏裕科技大樓B205</p>
+            </div>
+          </div>
+          <div
+            className="cppcContactInfoBack"
+            onClick={() => setContact(false)}
+          ></div>
+        </div>
+      )}
     </rentalFormContext.Provider>
   );
 }

@@ -46,6 +46,7 @@ class DetailModel(CreateModel):
 class CompleteModel(Model):
     model_id: int
     available: int
+    itemsCount: int
 
 
 class UpdateModel(BaseModel):

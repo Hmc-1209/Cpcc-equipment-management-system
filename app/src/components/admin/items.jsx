@@ -312,7 +312,7 @@ const Items = () => {
                 <select
                   name="modelSelect"
                   id="modelSelect"
-                  className="modelSelect"
+                  className="newItemModelSelect"
                 >
                   <option value="">選擇型號</option>
                   {models.map((model) => (
@@ -348,7 +348,7 @@ const Items = () => {
                     ) : (
                       <div className="itemNoPic">無圖片提供</div>
                     )}
-                    <div>
+                    <div className="itemDescription">
                       {
                         models.find(
                           (model) => model.model_id === item.model_id

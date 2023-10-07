@@ -1,5 +1,6 @@
 ::-webkit-scrollbar {
   width: 0;
+  height:0;
   background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
@@ -17,11 +18,12 @@
   flex-wrap: wrap;
   text-align: center;
   align-content: flex-start;
+  overflow: auto;
 }
 
 .itemAdd {
   width: 30%;
-  height: 80%;
+  height: fit-content;
   margin:auto;
   margin-top:3%;
   background-color: rgb(64, 64, 64);
@@ -60,8 +62,9 @@
   height: 10%;
 }
 
-.modelSelect {
-  height: 8%;
+.newItemModelSelect {
+  width: 70%;
+  height: fit-content;
 }
 
 .addItemDescription {
@@ -86,7 +89,7 @@
 
 .item {
   width: 30%;
-  height: 80%;
+  height: fit-content;
   margin:auto;
   margin-top:3%;
   background-color: rgb(64, 64, 64);
@@ -126,10 +129,13 @@
 
 .itemName {
   margin-top:10%;
+  overflow:auto;
 }
 
 .itemSerialNumber {
   color: aqua;
+  overflow: auto;
+  max-height:50px;
 }
 
 .itemNoPic {
@@ -148,7 +154,10 @@
   margin: auto;
   margin-top:5%;
   width: 80%;
-  height:10%;
+  max-height:10%;
+  overflow: auto;
+  word-wrap:normal;
+  overflow-x: auto;
   overflow-y: auto;
 }
 
@@ -203,6 +212,7 @@
   position: relative;
   margin:auto;
   margin-top:5%;
+  margin-bottom: 5%;
 }
 
 .inStockBtn,
@@ -213,11 +223,6 @@
   position: relative;
   color:rgb(100, 100, 100);
 }
-
-/* .rentingBtn {
-}
-.lostBtn {
-} */
 
 .deleteBtn {
   width: 25%;
@@ -280,7 +285,7 @@
     height: 10%;
   }
   
-  .modelSelect {
+  .newItemModelSelect {
     width: 50%;
     height: 10%;
   }
@@ -323,7 +328,7 @@
     height: 10%;
   }
   
-  .modelSelect {
+  .newItemModelSelect {
     width: 50%;
     height: 10%;
   }
@@ -335,7 +340,7 @@
 
   .item {
     width: 90%;
-    height: 75%;
+    height: fit-content;
   }
   
   .itemPad {
@@ -358,7 +363,6 @@
 
   .item {
     width: 90%;
-    height: 85%;
   }
   
   .itemPad {
@@ -366,9 +370,17 @@
     height:1%;
     margin:auto;
   }
-
+  .newItemnewItemModelSelect {
+    width: 50%;
+    height: 10%;
+  }
   .warn {
     width: 80%;
+  }
+
+  .itemCog {
+    right:0%;
+    top:0%;
   }
 }
 
@@ -380,7 +392,6 @@
 
   .item {
     width: 45%;
-    height: 450px;
   }
   
   .itemPad {
@@ -391,5 +402,10 @@
 
   .warn {
     width: 80%;
+  }
+
+  .itemCog {
+    right:1%;
+    top:1%;
   }
 }

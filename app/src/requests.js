@@ -1,4 +1,5 @@
-const path = "http://122.116.20.182:9001";
+// const path = "http://122.116.20.182:9001";
+const path = "http://localhost:8000";
 
 const get_access_token = async (user_name, password) => {
   // Get admin access token for localStorage

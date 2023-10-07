@@ -144,6 +144,7 @@ function App() {
         logOut,
         loading,
         setLoading,
+        setLogOutBtn,
         eIMData,
         setEIMData,
         eIMLayerData,

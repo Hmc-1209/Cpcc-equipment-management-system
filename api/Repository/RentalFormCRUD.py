@@ -61,5 +61,17 @@ async def update_rental_form_by_id(rental_id: int, new_form: UpdateRentalForm) -
 
 
 async def delete_rental_form_by_id(rental_id: int) -> bool:
-    stmt = RentalForm.delete().where(RentalForm.c.rental_id == rental_id)
-    return await execute_stmt_in_tran([stmt])
+    stmt_list = []
+
+    stmt_get_item = (RentalForm
+            .join(Item, RentalForm.c.item_id == Item.c.item_id)
+            .select().where(RentalForm.c.rental_id == rental_id))
+    item = await db.fetch_one(stmt_get_item)
+    
+    stmt = Item.update().where(Item.c.item_id == item.item_id).values(status=0)
+    stmt_list.append(stmt)
+
+    stmt2 = RentalForm.delete().where(RentalForm.c.rental_id == rental_id)
+    stmt_list.append(stmt2)
+
+    return await execute_stmt_in_tran(stmt_list)

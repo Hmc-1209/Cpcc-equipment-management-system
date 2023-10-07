@@ -22,9 +22,13 @@ async def get_model_by_name(name: str) -> DetailModel:
 async def get_model_list_by_class(class_id: int) -> list[CompleteModel]:
     stmt = text(
         """
-        SELECT model_id, model_name, COUNT(IF(status = 0, 1, NULL)) AS available
+        SELECT 
+            model_id, 
+            model_name, 
+            COUNT(IF(status = 0, 1, NULL)) AS available,
+            COUNT(*) AS itemsCount
         FROM Model m
-                 LEFT JOIN Item i USING (model_id)
+            LEFT JOIN Item i USING (model_id)
         WHERE class_id = :class_id
         GROUP BY model_id;
         """)

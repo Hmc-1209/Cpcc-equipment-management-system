@@ -1,4 +1,4 @@
-USE CpccEMS;
+USE CppcEMS;
 
 INSERT INTO User(name, password)
 VALUES ('CpccAdmin', '$2b$12$nCuMTo70oCw8thsh7HWXBuwQ737k5ffNV1nVH22C4Y1Byi7/jtejm');

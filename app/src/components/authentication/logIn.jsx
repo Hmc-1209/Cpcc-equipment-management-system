@@ -9,6 +9,8 @@ import "../../css/logIn.css";
 const LogIn = () => {
   // LogIn component will be rendered when clicking Admin section on home page
 
+  let { setLogOutBtn } = useContext(AppContext);
+
   const loggingIn = async () => {
     // Log In and set the localStorage datas
 
@@ -28,6 +30,7 @@ const LogIn = () => {
       window.localStorage.setItem("access_token", result.access_token);
       window.localStorage.setItem("isLogIn", true);
       setMode(2);
+      setLogOutBtn(true);
       return;
     }
     window.localStorage.setItem("access_token", null);

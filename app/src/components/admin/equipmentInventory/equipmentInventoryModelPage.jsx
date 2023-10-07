@@ -49,6 +49,8 @@ const EquipmentInventoryModel = () => {
     //eslint-disable-next-line
   }, []);
 
+  console.log(models);
+
   return (
     <>
       {!loading ? (
@@ -70,7 +72,7 @@ const EquipmentInventoryModel = () => {
                 >
                   <div className="modelName">{model.model_name}</div>
                   <div className="modelAvailable">
-                    可用數量：{model.available}
+                    可用數量：{model.available + " / " + model.itemsCount}
                   </div>
                 </div>
               ))}

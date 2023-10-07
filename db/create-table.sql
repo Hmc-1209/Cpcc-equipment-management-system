@@ -1,27 +1,27 @@
 -- Prevent recreating database
-DROP DATABASE IF EXISTS CpccEMS;
-DROP USER IF EXISTS 'CpccEMSRoot'@'localhost';
-DROP USER IF EXISTS 'CpccEMSAdmin'@'%';
+DROP DATABASE IF EXISTS CppcEMS;
+DROP USER IF EXISTS 'CppcEMSRoot'@'localhost';
+DROP USER IF EXISTS 'CppcEMSAdmin'@'%';
 
 -- Setting configuration
-SOURCE /tmp/CpccEMSconfig.sql;
+SOURCE /tmp/CppcEMSconfig.sql;
 
-CREATE DATABASE CpccEMS;
-USE CpccEMS;
+CREATE DATABASE CppcEMS;
+USE CppcEMS;
 
 -- Create root user
-SET @create_user_sql = CONCAT('CREATE USER ''CpccEMSRoot''@''localhost'' IDENTIFIED BY ''', @db_password, ''';');
+SET @create_user_sql = CONCAT('CREATE USER ''CppcEMSRoot''@''localhost'' IDENTIFIED BY ''', @db_password, ''';');
 PREPARE stmt FROM @create_user_sql;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
-GRANT ALL PRIVILEGES ON *.* TO 'CpccEMSRoot'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'CppcEMSRoot'@'localhost';
 
 -- Create admin user
-SET @create_user_sql = CONCAT('CREATE USER ''CpccEMSAdmin''@''%'' IDENTIFIED BY ''', @db_password, ''';');
+SET @create_user_sql = CONCAT('CREATE USER ''CppcEMSAdmin''@''%'' IDENTIFIED BY ''', @db_password, ''';');
 PREPARE stmt FROM @create_user_sql;
 EXECUTE stmt;
 DEALLOCATE PREPARE stmt;
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, EXECUTE, INDEX ON CpccEMS.* TO 'CpccEMSAdmin'@'%';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, EXECUTE, INDEX ON CppcEMS.* TO 'CppcEMSAdmin'@'%';
 
 
 -- Create USER table
