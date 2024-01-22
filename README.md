@@ -18,7 +18,7 @@ Just use the following command to download it at the place you want :
 `git clone https://github.com/Hmc-1209/Cppc-equipment-management-system.git`  
 
 ##### 2. Setup
-- You can use the desired SQL database for storing datas. Mine is MariaDB as it's suitable for RasPi. If your using other databases, just make sure to adjust the setting in step 4.  
+- You can use the desired SQL database for storing datas. Mine is MariaDB as it's suitable for RasPi. If you're using other databases, just make sure to adjust the settings in step 4.  
 - Make Sure your server can use ssh connection.
 
 ##### 3. Create database structure
@@ -45,6 +45,8 @@ Next, generate a secret key using the following command (`openssl rand -hex 64`)
 ACCESS_TOKEN_SECRET_KEY = 'YOUR_APPLICATION_SECRET_KEY'
 ALGORITHM = 'HS256'
 ```
+
+Finally, navigate to the database.py file and change ssh connection IP to your server's IP address. (You can find it at line 10 if you haven't change anything in the file)
 
 ##### 5. Create admin user for the application
 You will have to create a user manually using the following command to let you able to login in the application. First, run the create_password_hash.py for your admin password, enter plain text and it will give you hashed password :   

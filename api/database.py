@@ -7,7 +7,7 @@ import config
 
 # In case someday the API and the database are in different server
 server = SSHTunnelForwarder(
-    ('122.116.20.182', 22),
+    ('YOUR_SERVER_IP_HERE', 22),
     ssh_username=config.ssh_username,
     ssh_password=config.ssh_password,
     remote_bind_address=('localhost', 3306)
